@@ -14,15 +14,15 @@ public class UsersService {
 	@Autowired
 	private UsersRepository usersRepository;
 
-	/*@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;*/
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public User getUser(Long id) {
 		return usersRepository.findOne(id);
 	}
 
 	public void addUser(User user) {
-		user.setPassword(user.getPassword()); //falta bcrypt
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		usersRepository.save(user);
 	}
 

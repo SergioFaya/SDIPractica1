@@ -17,6 +17,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private String name;
+	private String lastName;
 	private String password;
 	@Transient
 	private String passwordConfirm;
@@ -69,6 +70,14 @@ public class User {
 
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 }
