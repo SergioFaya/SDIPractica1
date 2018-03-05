@@ -19,17 +19,17 @@ public class SignupFormValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "Error.empty");
-		/*if (user.getEmail().length() < 5 || user.getDni().length() > 24) {
-			errors.rejectValue("dni", "Error.signup.dni.length");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Error.empty");
+		if (user.getEmail().matches("\"\\\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b\"")) {
+			errors.rejectValue("email", "Error.signup.email.format");
 		}
-		if (usersService.getUserByDni(user.getDni()) != null) {
-			errors.rejectValue("dni", "Error.signup.dni.duplicate");
+		if (usersService.getUserByEmail(user.getEmail()) != null) {
+			errors.rejectValue("email", "Error.signup.email.duplicate");
 		}
-		if (user.getName().length() < 5 || user.getName().length() > 24) {
+		if (user.getName().length() < 3 || user.getName().length() > 24) {
 			errors.rejectValue("name", "Error.signup.name.length");
 		}
-		if (user.getLastName().length() < 5 || user.getLastName().length() > 24) {
+		if (user.getLastName().length() < 3 || user.getLastName().length() > 24) {
 			errors.rejectValue("lastName", "Error.signup.lastName.length");
 		}
 		if (user.getPassword().length() < 5 || user.getPassword().length() > 24) {
@@ -37,7 +37,7 @@ public class SignupFormValidator implements Validator {
 		}
 		if (!user.getPasswordConfirm().equals(user.getPassword())) {
 			errors.rejectValue("passwordConfirm", "Error.signup.passwordConfirm.coincidence");
-		}*/
+		}
 	}
 
 }

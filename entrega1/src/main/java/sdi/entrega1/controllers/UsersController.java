@@ -3,6 +3,8 @@ package sdi.entrega1.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,9 +21,14 @@ public class UsersController {
 
 	@Autowired
 	private SecurityService securityService;
-	
+
 	@Autowired
 	private SignupFormValidator signUpFormValidator;
+
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home(Model model) {
+		return "home";
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -36,7 +43,11 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signUp(User user, Model model) {
+	public String signUp(@Validated User user, BindingResult result, Model model) {
+		signUpFormValidator.validate(user, result);
+		if (result.hasErrors()) {
+			return "signup";
+		}
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
