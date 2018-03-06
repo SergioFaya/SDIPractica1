@@ -1,6 +1,12 @@
 package sdi.entrega1.controllers;
 
+import java.security.Principal;
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +36,7 @@ public class UsersController {
 	private RolesService rolesService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, Pageable pagebale) {
 		return "home";
 	}
 
@@ -56,6 +62,15 @@ public class UsersController {
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
+	}
+	
+	@RequestMapping(value = "/users/list")
+	public String getList(Model model, Pageable pageable) {
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+		users = usersService.getAllUsers(pageable);
+		model.addAttribute("userList", users.getContent());
+		model.addAttribute("page", users);
+		return "users/list";
 	}
 
 }
