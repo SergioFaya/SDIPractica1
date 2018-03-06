@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import sdi.entrega1.entities.User;
+import sdi.entrega1.services.RolesService;
 import sdi.entrega1.services.SecurityService;
 import sdi.entrega1.services.UsersService;
 import sdi.entrega1.validators.SignupFormValidator;
@@ -24,6 +25,9 @@ public class UsersController {
 
 	@Autowired
 	private SignupFormValidator signUpFormValidator;
+	
+	@Autowired
+	private RolesService rolesService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -48,6 +52,7 @@ public class UsersController {
 		if (result.hasErrors()) {
 			return "signup";
 		}
+		user.setRole(rolesService.getRoles()[0]);
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";

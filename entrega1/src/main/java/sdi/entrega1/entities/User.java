@@ -21,15 +21,17 @@ public class User {
 	private String password;
 	@Transient
 	private String passwordConfirm;
-
+	private String role;
+	
 	public User() {
 
 	}
 
-	public User(String email, String name) {
+	public User(String email, String name, String lastName) {
 		super();
 		this.email = email;
 		this.name = name;
+		this.lastName = lastName;
 	}
 
 	public long getId() {
@@ -78,6 +80,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public String getRole() {
+		return role;
 	}
 
 }
