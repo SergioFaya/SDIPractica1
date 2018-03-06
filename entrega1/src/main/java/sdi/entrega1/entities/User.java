@@ -1,9 +1,13 @@
 package sdi.entrega1.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -22,6 +26,12 @@ public class User {
 	@Transient
 	private String passwordConfirm;
 	private String role;
+	
+	@OneToMany(mappedBy = "user_source")
+	private Set<FriendShipRequest> created_requests;
+	
+	@ManyToOne
+	private Set<FriendShipRequest> received_requests;
 	
 	public User() {
 
