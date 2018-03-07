@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<nav th:replace="fragments/nav"/>
+	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2>Usuarios</h2>
 		<p>A continuación se muestran todos los usuarios registrados en la
@@ -34,5 +34,8 @@
 				</tbody>
 			</table>
 		</div>
+		<footer th:replace="fragments/pagination" />
 	</div>
+	<footer th:replace="fragments/footer" />
 </body>
+</html>
