@@ -1,6 +1,5 @@
 package sdi.entrega1.controllers;
 
-import java.security.Principal;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sdi.entrega1.entities.User;
 import sdi.entrega1.services.RolesService;
@@ -31,7 +31,7 @@ public class UsersController {
 
 	@Autowired
 	private SignupFormValidator signUpFormValidator;
-	
+
 	@Autowired
 	private RolesService rolesService;
 
@@ -63,11 +63,16 @@ public class UsersController {
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
 	}
-	
+
 	@RequestMapping(value = "/users/list")
-	public String getList(Model model, Pageable pageable) {
+	public String getList(Model model, Pageable pageable,
+			@RequestParam(value = "", required = false) String searchText) {
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
-		users = usersService.getAllUsers(pageable);
+		if (searchText!= null && !searchText.isEmpty()) {
+			users = usersService.searchUsersByNombreAndEmail(pageable, searchText);
+		} else {
+			users = usersService.getAllUsers(pageable);
+		}
 		model.addAttribute("userList", users.getContent());
 		model.addAttribute("page", users);
 		return "users/list";

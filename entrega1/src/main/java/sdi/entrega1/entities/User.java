@@ -30,7 +30,7 @@ public class User {
 	@OneToMany(mappedBy = "user_source")
 	private Set<FriendShipRequest> created_requests;
 	
-	@OneToOne
+	@OneToMany
 	private Set<FriendShipRequest> received_requests;
 	
 	public User() {
