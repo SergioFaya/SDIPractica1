@@ -1,8 +1,13 @@
 package sdi.entrega1.services;
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +43,13 @@ public class UsersService {
 
 	public Page<User> getAllUsers(Pageable pageable) {
 		return usersRepository.findAll(pageable);
+	}
+	
+	public Page<User> searchUsersByNombreAndEmail(Pageable pageable, String searchText){
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+		searchText = "%" + searchText + "%";
+		users = usersRepository.searchByNombreAndEmail(pageable, searchText);
+		return users;
 	}
 
 }
