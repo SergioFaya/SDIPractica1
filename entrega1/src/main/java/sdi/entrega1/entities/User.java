@@ -1,5 +1,6 @@
 package sdi.entrega1.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -7,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -99,5 +99,28 @@ public class User {
 	public String getRole() {
 		return role;
 	}
+
+	public Set<FriendShipRequest> getCreated_requests() {
+		return new HashSet<>(created_requests);
+	}
+
+	void _setCreated_requests(Set<FriendShipRequest> created_requests) {
+		this.created_requests = created_requests;
+	}
+
+	public Set<FriendShipRequest> getReceived_requests() {
+		return new HashSet<>(received_requests);
+	}
+
+	//ttest
+	public void addRequest(FriendShipRequest request) {
+		this.received_requests.add(request);
+
+	}
+	void _setReceived_requests(Set<FriendShipRequest> received_requests) {
+		this.received_requests = received_requests;
+	}
+	
+	
 
 }

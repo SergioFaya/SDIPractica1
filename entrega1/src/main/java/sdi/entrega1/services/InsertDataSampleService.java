@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sdi.entrega1.entities.FriendShipRequest;
 import sdi.entrega1.entities.User;
 
 @Service
@@ -21,6 +22,8 @@ public class InsertDataSampleService {
 		User user1 = new User("pedro@gmail.com", "Pedro", "Díaz");
 		user1.setPassword("123456");
 		user1.setRole(rolesService.getRoles()[0]);
+		//friendrequest
+		//user1.addRequest(new FriendShipRequest());
 		User user2 = new User("lucas@gmail.com", "Lucas", "Núñez");
 		user2.setPassword("123456");
 		user2.setRole(rolesService.getRoles()[0]);
@@ -36,6 +39,8 @@ public class InsertDataSampleService {
 		User user6 = new User("edward@gmail.com", "Edward", "Núñez");
 		user6.setPassword("123456");
 		user6.setRole(rolesService.getRoles()[1]);
+		
+		
 		
 		usersService.addUser(user1);
 		usersService.addUser(user2);
