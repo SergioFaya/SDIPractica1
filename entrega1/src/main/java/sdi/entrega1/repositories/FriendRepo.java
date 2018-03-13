@@ -4,10 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-import sdi.entrega1.entities.FriendShipRequest;
+import sdi.entrega1.entities.Friend;
 
-public interface FriendShipRequestRepo extends CrudRepository<FriendShipRequest, Long> {
+public interface FriendRepo extends CrudRepository<Friend, Long>{
 
-	Page<FriendShipRequest> findAll(Pageable pageable);
+	Page<Friend> findAllFriends(Pageable pageable);
 
 }

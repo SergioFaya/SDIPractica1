@@ -22,18 +22,28 @@
 					<ul class="dropdown-menu">
 						<li><a href="/users/list">Ver usuarios</a></li>
 					</ul></li>
+					
+				<li id="users-menu" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#" th:text = "#{NavBar.label.friends.dropdown.title}">
+					<ul class="dropdown-menu">
+						<li><a href="/friends/requests" th:text = "#{NavBar.label.friends.dropdown.request}"></a></li>
+					</ul>
+					<ul class="dropdown-menu">
+						<li><a href="/friends" th:text = "#{NavBar.label.friends.dropdown.list}"></a></li>
+					</ul>
+				</li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 
 				<li><a href="/signup"> <span
-						class="glyphicon glyphicon-user"  th:text = #{NavBar.label.register}></span> 
+						class="glyphicon glyphicon-user"  th:text = "#{NavBar.label.register}"></span> 
 				</a></li>
 				<li><a href="/login"> <span
-						class="glyphicon glyphicon-log-in" th:text = #{NavBar.label.logIn}></span> 
+						class="glyphicon glyphicon-log-in" th:text = "#{NavBar.label.logIn}"></span> 
 				</a></li>
-				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
-						class="glyphicon glyphicon-log-out"></span> Desconectar
+				<li sec:authorize="isAuthenticated()"  th:text = "#{NavBar.label.logOut}"><a href="/logout"> <span
+						class="glyphicon glyphicon-log-out"></span> 
 				</a></li>
 			</ul>
 		</div>

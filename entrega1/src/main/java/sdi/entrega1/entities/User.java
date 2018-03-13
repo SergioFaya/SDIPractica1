@@ -30,9 +30,6 @@ public class User {
 	@OneToMany(mappedBy = "user_source")
 	private Set<FriendShipRequest> created_requests;
 	
-	@OneToMany
-	private Set<FriendShipRequest> received_requests;
-	
 	public User() {
 
 	}
@@ -106,21 +103,6 @@ public class User {
 
 	void _setCreated_requests(Set<FriendShipRequest> created_requests) {
 		this.created_requests = created_requests;
-	}
-
-	public Set<FriendShipRequest> getReceived_requests() {
-		return new HashSet<>(received_requests);
-	}
-
-	//ttest
-	public void addRequest(FriendShipRequest request) {
-		this.received_requests.add(request);
-
-	}
-	void _setReceived_requests(Set<FriendShipRequest> received_requests) {
-		this.received_requests = received_requests;
-	}
-	
-	
+	}	
 
 }

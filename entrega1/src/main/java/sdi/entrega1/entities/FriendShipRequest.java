@@ -5,11 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "friendShipRequest")
+@Table(name = "friendShip_Request")
 public class FriendShipRequest {
 
 	@Id
@@ -20,8 +19,9 @@ public class FriendShipRequest {
 	private User user_source;
 	
 	@ManyToOne
-	@JoinColumn(name = "received_requests")
-	private User user_destiny;
+	@JoinColumn(name = "friend")
+	private Friend friend;
+	
 	
 	private String message;
 
@@ -29,9 +29,8 @@ public class FriendShipRequest {
 		
 	}
 	
-	public FriendShipRequest(User origin, User destiny, String message) {
+	public FriendShipRequest(User origin, String message) {
 		this.user_source = origin;
-		this.user_destiny = destiny;
 		this.message = message;
 	}
 	
