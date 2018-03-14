@@ -15,6 +15,6 @@ public class FriendsService {
 	private FriendRepo repository;
 	
 	public Page<Friend> getAllFriends(Pageable pageable) {
-		return repository.findAllFriends(pageable);
+		return repository.findAll(pageable);
 	}
 }

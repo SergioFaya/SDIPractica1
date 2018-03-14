@@ -8,6 +8,6 @@ import sdi.entrega1.entities.Friend;
 
 public interface FriendRepo extends CrudRepository<Friend, Long>{
 
-	Page<Friend> findAllFriends(Pageable pageable);
+	Page<Friend> findAll(Pageable pageable);
 
 }
