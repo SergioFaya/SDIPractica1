@@ -14,11 +14,8 @@
         <h2 th:text="#{friendship.request.list.header.2.list}"></h2>
         <div th:each="frequest : ${fRequestList}">
             <div class="card">
-                <div class="card-header" th:text="USUARIO QUE ENVIA EL MENSAJE"></div>
-                <div class="card-body">
-                    <p th:text="${frequest.message}"></p>
-                    <a href="METODO DE AGREGAR" class="btn btn-primary" th:text="#{friendship.request.list.button.add}"></a>
-                </div>
+                <div class="card-header" th:text="${frequest.userSource}"></div>
+                
             </div>
         </div>
     </div>

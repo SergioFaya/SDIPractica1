@@ -27,8 +27,11 @@ public class User {
 	private String passwordConfirm;
 	private String role;
 	
-	@OneToMany(mappedBy = "user_source")
-	private Set<FriendShipRequest> created_requests;
+	@OneToMany(mappedBy = "userSource")
+	private Set<FriendShipRequest> sentRequests;
+	
+	@OneToMany(mappedBy = "userDestiny")
+	private Set<FriendShipRequest> receivedRequests;
 	
 	public User() {
 
@@ -97,12 +100,20 @@ public class User {
 		return role;
 	}
 
-	public Set<FriendShipRequest> getCreated_requests() {
-		return new HashSet<>(created_requests);
+	public Set<FriendShipRequest> getSentRequests() {
+		return sentRequests;
 	}
 
-	void _setCreated_requests(Set<FriendShipRequest> created_requests) {
-		this.created_requests = created_requests;
-	}	
+	public void setSentRequests(Set<FriendShipRequest> sentRequests) {
+		this.sentRequests = sentRequests;
+	}
+
+	public Set<FriendShipRequest> getReceivedRequests() {
+		return receivedRequests;
+	}
+
+	public void setReceivedRequests(Set<FriendShipRequest> receivedRequests) {
+		this.receivedRequests = receivedRequests;
+	}
 
 }

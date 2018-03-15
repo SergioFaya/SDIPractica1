@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import sdi.entrega1.entities.FriendShipRequest;
 import sdi.entrega1.entities.User;
+import sdi.entrega1.services.friends.request.FriendshipRequestService;
 
 @Service
 public class InsertDataSampleService {
@@ -16,6 +17,9 @@ public class InsertDataSampleService {
 	
 	@Autowired
 	private RolesService rolesService;
+	
+	@Autowired
+	private FriendshipRequestService fs;
 	
 	@PostConstruct
 	public void init() {
@@ -48,7 +52,8 @@ public class InsertDataSampleService {
 		
 		
 		//Peticiones de prueba
-		FriendShipRequest req = new FriendShipRequest();
+		FriendShipRequest req = new FriendShipRequest(user1, user2);
+		fs.addRequest(req);
 		
 	}
 

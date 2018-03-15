@@ -15,32 +15,44 @@ public class FriendShipRequest {
 	@GeneratedValue
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name = "user_source")
-	private User user_source;
-	
+	private User userSource;
+
 	@ManyToOne
-	@JoinColumn(name = "friend")
-	private Friend friend;
-	
-	
-	private String message;
+	private User userDestiny;
 
-	public FriendShipRequest() { 
-		
-	}
-	
-	public FriendShipRequest(User origin, String message) {
-		this.user_source = origin;
-		this.message = message;
-	}
-	
-	public String getMessage() {
-		return message;
+	private boolean isAccepted;
+
+	public FriendShipRequest() {
+
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}	
-	
-	
+	public FriendShipRequest(User userSource, User userDestiny) {
+		this.userSource = userSource;
+		this.userDestiny = userDestiny;
+	}
+
+	public boolean isAccepted() {
+		return isAccepted;
+	}
+
+	public void setAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+
+	public User getUserSource() {
+		return userSource;
+	}
+
+	public void setUserSource(User userSource) {
+		this.userSource = userSource;
+	}
+
+	public User getUserDestiny() {
+		return userDestiny;
+	}
+
+	public void setUserDestiny(User userDestiny) {
+		this.userDestiny = userDestiny;
+	}
+
 }

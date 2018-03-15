@@ -18,6 +18,8 @@ public class FriendshipRequestService {
 		return friendshipRepo.findAll(pageable);
 	}
 	
-	
+	public void addRequest(FriendShipRequest request) {
+		friendshipRepo.save(request);
+	}
 	
 }
