@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head" />
+
+<body>
+    <nav th:replace="fragments/nav" />
+    <h1 th:text="#{users.details.header.1.info}"></h1>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl>
+                    <dt th:text="#{users.details.user.name}"></dt>
+                    <dd th:text="${user.name}"></dd>
+                    <dt th:text="#{users.details.user.lastname}"></dt>
+                    <dd th:text="${user.lastName}"></dd>
+                    <dt th:text="#{users.details.user.email}"></dt>
+                    <dd th:text="${user.email}"></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="fragments/footer" />
+</body>
+
+</html>

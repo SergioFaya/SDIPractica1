@@ -20,6 +20,6 @@ public class FriendshipRequestService {
 	
 	public void addRequest(FriendShipRequest request) {
 		friendshipRepo.save(request);
-	}
+	} 
 	
 }

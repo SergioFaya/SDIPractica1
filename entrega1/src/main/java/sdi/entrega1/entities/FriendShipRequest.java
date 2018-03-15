@@ -30,7 +30,7 @@ public class FriendShipRequest {
 		this.userSource = userSource;
 		this.userDestiny = userDestiny;
 	}
-
+	
 	public boolean isAccepted() {
 		return isAccepted;
 	}

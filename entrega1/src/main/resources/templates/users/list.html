@@ -36,8 +36,8 @@
 									Acciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li><a href="#" th:text="#{users.table.send}"></a></li>
-									<li><a href="#" th:text="#{users.table.profile}"></a></li>
+									<li><a th:href="${'/friends/send/request/' + user.id}" th:text="#{users.table.send}"></a></li>
+									<li><a th:href="${'/users/details/' + user.id}" th:text="#{users.table.profile}"></a></li>
 								</ul>
 							</div>
 						</td>

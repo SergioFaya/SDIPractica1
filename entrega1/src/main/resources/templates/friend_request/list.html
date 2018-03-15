@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,12 +11,23 @@
 <body>
     <nav th:replace="fragments/nav" />
     <div class="container">
+        <div th:if="${alert} != null">
+            <div id="alert" th:replace="${alert}"></div>
+        </div>
+
         <h2 th:text="#{friendship.request.list.header.2.list}"></h2>
         <div th:each="frequest : ${fRequestList}">
-            <div class="card">
-                <div class="card-header" th:text="${frequest.userSource}"></div>
-                
+
+            <div class="panel panel-default">
+                <div class="panel-heading" >
+                    <h3 class="panel-title" th:text="${frequest.userSource.email}"></h3>
+                </div>
+                <div class="panel-body">
+                    <p th:text="${frequest.userSource.name + frequest.userSource.lastName}"></p>
+                    <a href="#" class="btn btn-primary" th:text="#{friendship.request.accept}"></a>
+                </div>
             </div>
+
         </div>
     </div>
 </body>
