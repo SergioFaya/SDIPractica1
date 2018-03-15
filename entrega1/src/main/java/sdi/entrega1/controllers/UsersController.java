@@ -77,5 +77,6 @@ public class UsersController {
 		model.addAttribute("page", users);
 		return "users/list";
 	}
+	
 
 }

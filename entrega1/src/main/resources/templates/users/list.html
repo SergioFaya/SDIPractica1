@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Red Social</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-</head>
+<head th:replace="fragments/head" />
 
 <body>
 	<nav th:replace="fragments/nav" />
@@ -19,24 +13,34 @@
 					placeholder="Buscar por nombre o email del usuario">
 			</div>
 			<button type="submit" class="btn btn-default"
-			th:text="#{users.search}"></button>
+				th:text="#{users.search}"></button>
 		</form>
 		<div class="table-responsive">
-			<table class="table table-hover" id="tableUsers"
-				th:fragment="tableUsers" id="tableUsers">
+			<table class="table table-hover" id="tableUsers">
 				<thead>
 					<tr>
 						<th th:text="#{users.table.name}"></th>
 						<th>Email</th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
+						<th th:text="#{users.table.actions}"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="user : ${userList}">
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
+						<td>
+							<div class="dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button"
+									id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="true">
+									Acciones <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li><a href="#" th:text="#{users.table.send}"></a></li>
+									<li><a href="#" th:text="#{users.table.profile}"></a></li>
+								</ul>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
