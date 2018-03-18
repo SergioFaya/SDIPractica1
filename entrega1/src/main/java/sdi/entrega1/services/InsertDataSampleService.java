@@ -51,10 +51,10 @@ public class InsertDataSampleService {
 		usersService.addUser(user6);
 		
 		
-		//Peticiones de prueba
-		FriendShipRequest req = new FriendShipRequest(user1, user2);
-		fs.addRequest(req);
-		
+//		//Peticiones de prueba
+//		FriendShipRequest req = new FriendShipRequest(user1, user2);
+//		fs.addRequest(req);
+//		
 	}
 
 }

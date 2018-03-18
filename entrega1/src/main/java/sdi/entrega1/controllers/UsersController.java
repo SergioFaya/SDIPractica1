@@ -1,5 +1,6 @@
 package sdi.entrega1.controllers;
 
+import java.security.Principal;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +67,12 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/users/list")
-	public String getList(Model model, Pageable pageable,
-			@RequestParam(value = "", required = false) String searchText) {
+	public String getList(Model model, Pageable pageable,Principal principal, @RequestParam(value = "", required = false) String searchText) {
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
 		if (searchText!= null && !searchText.isEmpty()) {
 			users = usersService.searchUsersByNombreAndEmail(pageable, searchText);
 		} else {
-			users = usersService.getAllUsers(pageable);
+			users = usersService.getAllUsersBut(pageable,principal.getName());
 		}
 		model.addAttribute("userList", users.getContent());
 		model.addAttribute("page", users);
@@ -83,6 +83,15 @@ public class UsersController {
 	public String getDetails(Model model, @PathVariable Long id) {
 		model.addAttribute("user", usersService.getUser(id));
 		return "users/details";
+	}
+	
+	//Es un controlador de User porque los devuelve, aunque al trabajar con request podría ser
+	//a su vez un controlador de FriendShipRequest
+	@RequestMapping("/friends/list")
+	public String getFriends(Model model, Principal principal, Pageable pageable) {
+		Page<User> requests = usersService.getMyFriends(pageable, principal);
+		model.addAttribute("friends", requests.getContent());
+		return "friends/list";
 	}
 	
 
