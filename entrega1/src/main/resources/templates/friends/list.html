@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Red Social</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-</head>
+<head th:replace = "fragments/head"></head>
 <body>
     <nav th:replace="fragments/nav" />
     <div class="container">
@@ -21,8 +16,9 @@
                      class="btn btn-primary" th:text="#{users.friends.list.details}"></a>
                 </div>
             </div>
-
         </div>
+        <footer th:replace = "fragments/pagination"></footer>    
     </div>
+    <footer th:replace = "fragments/footer"></footer>
 </body>
 </html>

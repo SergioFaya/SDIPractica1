@@ -91,6 +91,7 @@ public class UsersController {
 	public String getFriends(Model model, Principal principal, Pageable pageable) {
 		Page<User> requests = usersService.getMyFriends(pageable, principal);
 		model.addAttribute("friends", requests.getContent());
+		model.addAttribute("page", requests);
 		return "friends/list";
 	}
 	

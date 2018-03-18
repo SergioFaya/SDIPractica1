@@ -28,6 +28,7 @@ public class FriendshipRequestController {
 	public String getRequests(Model model, Principal principal, Pageable pageable) {
 		Page<FriendShipRequest> requests = requestService.getMyFriendshipRequests(pageable, principal);
 		model.addAttribute("fRequestList", requests.getContent());
+		model.addAttribute("page", requests);
 		return "friends/requests/list";
 	}
 
