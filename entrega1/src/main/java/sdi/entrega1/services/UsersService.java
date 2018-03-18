@@ -1,6 +1,7 @@
 package sdi.entrega1.services;
 
 
+import java.security.Principal;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +44,20 @@ public class UsersService {
 		return usersRepository.findAll(pageable);
 	}
 	
+	public Page<User> getAllUsersBut(Pageable pageable, String email) { 
+		return usersRepository.searchAllButUser(pageable,email);
+	}
+	
+		
 	public Page<User> searchUsersByNombreAndEmail(Pageable pageable, String searchText){
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
 		searchText = "%" + searchText + "%";
 		users = usersRepository.searchByNombreAndEmail(pageable, searchText);
 		return users;
 	}
+	
+	public Page<User> getMyFriends(Pageable pageable, Principal principal) {
+		return usersRepository.findAllByUserDestinyAndIsAccepted(pageable,principal.getName());
+	} 
 
 }

@@ -33,13 +33,13 @@
 						
 					<ul class="dropdown-menu">
 						<li>
-							<a href="/friends/requests"
+							<a href="/friends/requests/list"
 								th:text="#{NavBar.label.friends.dropdown.request}">
 							</a>
 						</li>
 						
 						<li>
-							<a href="/friends"
+							<a href="/friends/list"
 								th:text="#{NavBar.label.friends.dropdown.list}">
 							</a>
 						</li>
@@ -51,16 +51,15 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 
-				<li><a href="/signup"> <span
+				<li sec:authorize="!isAuthenticated()"><a href="/signup"> <span
 						class="glyphicon glyphicon-user"
 						th:text="#{NavBar.label.register}"></span>
 				</a></li>
-				<li><a href="/login"> <span
+				<li sec:authorize="!isAuthenticated()"><a href="/login"> <span
 						class="glyphicon glyphicon-log-in" th:text="#{NavBar.label.logIn}"></span>
 				</a></li>
-				<li sec:authorize="isAuthenticated()"
-					th:text="#{NavBar.label.logOut}"><a href="/logout"> <span
-						class="glyphicon glyphicon-log-out"></span>
+				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
+						class="glyphicon glyphicon-log-out" th:text="#{NavBar.label.logOut}"></span>
 				</a></li>
 			</ul>
 		</div>
