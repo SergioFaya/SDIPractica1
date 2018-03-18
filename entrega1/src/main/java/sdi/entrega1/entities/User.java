@@ -37,6 +37,9 @@ public class User {
 	@OneToMany(mappedBy = "userDestiny")
 	private Set<FriendShipRequest> receivedRequests;
 	
+	@OneToMany(mappedBy = "user")
+	private Set<Post> posts;
+	
 	public User() {
 
 	}
