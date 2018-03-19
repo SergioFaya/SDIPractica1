@@ -1,5 +1,6 @@
 package sdi.entrega1.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FriendShip_Request")
+@Table(name = "FriendShipRequest")
 public class FriendShipRequest {
 
 	@Id
@@ -29,7 +30,15 @@ public class FriendShipRequest {
 		this.userSource = userSource;
 		this.userDestiny = userDestiny;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public boolean isAccepted() {
 		return isAccepted;
 	}
@@ -85,5 +94,4 @@ public class FriendShipRequest {
 		return true;
 	}
 
-	
 }

@@ -43,14 +43,25 @@ public class FriendshipRequestController {
 		}
 		return "/friends/requests/error";
 	}
-	
+
 	@RequestMapping("/friends/accept/request/{id}")
 	public String aceptRequest(Model model, Principal principal, @PathVariable Long id) {
 		User authenticated, friend;
 		authenticated = userService.getUserByEmail(principal.getName());
 		friend = userService.getUser(id);
 		requestService.acceptRequest(authenticated, friend);
-		return "/friends/requests/list";
+		return "redirect:/friends/requests/list";
+	}
+
+	// Es un controlador de User porque los devuelve, aunque al trabajar con request
+	// podría ser
+	// a su vez un controlador de FriendShipRequest
+	@RequestMapping("/friends/list")
+	public String getFriends(Model model, Principal principal, Pageable pageable) {
+		Page<FriendShipRequest> requests = requestService.getMyFriends(pageable, principal);
+		model.addAttribute("friends", requests.getContent());
+		model.addAttribute("page", requests);
+		return "friends/list";
 	}
 
 }

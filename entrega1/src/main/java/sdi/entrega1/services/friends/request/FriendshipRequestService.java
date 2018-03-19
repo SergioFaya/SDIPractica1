@@ -34,10 +34,23 @@ public class FriendshipRequestService {
 	public Page<FriendShipRequest> getMyFriendshipRequests(Pageable pageable, Principal principal) {
 		return friendshipRepo.findAllByUserDestiny(pageable,principal.getName());
 	}
+	
+	public Page<FriendShipRequest> getMyFriends(Pageable pageable, Principal principal) {
+		return friendshipRepo.findFriends(pageable,principal.getName());
+	}
 
 	public void acceptRequest(User authenticated, User friend) {
-		//TODO:LO del return 
-		friendshipRepo.acceptFriendship(authenticated.getEmail(), friend.getEmail());
+		//friendshipRepo.updateRequest(authenticated.getEmail(),friend.getEmail());
+		FriendShipRequest request = friendshipRepo.findByUserSourceAndUserDestiny(authenticated, friend);
+		if(request != null) {friendshipRepo.delete(request);}
+		FriendShipRequest inverseRequest = friendshipRepo.findByUserSourceAndUserDestiny(friend,authenticated);
+		if(inverseRequest != null) {friendshipRepo.delete(inverseRequest);}
+		request = new FriendShipRequest(authenticated, friend);
+		request.setAccepted(true);
+		inverseRequest = new FriendShipRequest(friend, authenticated);
+		inverseRequest.setAccepted(true);
+		friendshipRepo.save(request);
+		friendshipRepo.save(inverseRequest);
 	}
 
 	

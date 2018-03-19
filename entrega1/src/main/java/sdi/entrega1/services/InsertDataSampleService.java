@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sdi.entrega1.entities.FriendShipRequest;
 import sdi.entrega1.entities.User;
 import sdi.entrega1.services.friends.request.FriendshipRequestService;
 
@@ -51,10 +50,11 @@ public class InsertDataSampleService {
 		usersService.addUser(user6);
 		
 		
-//		//Peticiones de prueba
-//		FriendShipRequest req = new FriendShipRequest(user1, user2);
-//		fs.addRequest(req);
-//		
+		//Peticiones de prueba
+		fs.addRequest(user1, user2);
+		fs.addRequest(user2, user3);
+		fs.acceptRequest(user3, user2);
+		
 	}
 
 }

@@ -19,7 +19,6 @@ public class Post {
 	private String title;
 	private String photoPath;
 	
-	
 	public Post() {
 		super();
 	}
@@ -75,7 +74,14 @@ public class Post {
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}
-		
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}	
 	
 	
 }

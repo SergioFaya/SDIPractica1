@@ -18,8 +18,8 @@ public class PostsService {
 		postRepo.save(post);		
 	}
 
-	public List<Post> getUserPost(String name) {
-		return postRepo.findAll();//TODO:CAmbiar a amigos
+	public List<Post> getUserPost(String email) {
+		return postRepo.findAllOfUser(email);
 	}
-	
+		
 }

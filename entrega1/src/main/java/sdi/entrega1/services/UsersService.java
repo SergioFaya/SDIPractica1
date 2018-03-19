@@ -56,8 +56,4 @@ public class UsersService {
 		return users;
 	}
 	
-	public Page<User> getMyFriends(Pageable pageable, Principal principal) {
-		return usersRepository.findAllByUserDestinyAndIsAccepted(pageable,principal.getName());
-	} 
-
 }

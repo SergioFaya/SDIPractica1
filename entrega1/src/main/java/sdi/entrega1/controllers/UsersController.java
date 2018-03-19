@@ -85,15 +85,5 @@ public class UsersController {
 		return "users/details";
 	}
 	
-	//Es un controlador de User porque los devuelve, aunque al trabajar con request podría ser
-	//a su vez un controlador de FriendShipRequest
-	@RequestMapping("/friends/list")
-	public String getFriends(Model model, Principal principal, Pageable pageable) {
-		Page<User> requests = usersService.getMyFriends(pageable, principal);
-		model.addAttribute("friends", requests.getContent());
-		model.addAttribute("page", requests);
-		return "friends/list";
-	}
-	
 
 }

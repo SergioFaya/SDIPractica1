@@ -14,7 +14,6 @@
                 </div>
                 <div class="panel-body">
                     <p th:text = "${frequest.userSource.name + frequest.userSource.lastName}"></p>
-                    <p th:text = "${frequest.id}"></p>
                     <a th:href = "${'/friends/accept/request/' + frequest.id}" class="btn btn-primary" th:text="#{friendship.request.list.button.add}"></a>
                 </div>
             </div>

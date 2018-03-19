@@ -41,7 +41,6 @@ public class User {
 	private Set<Post> posts;
 	
 	public User() {
-
 	}
 
 	public User(String email, String name, String lastName) {
@@ -150,7 +149,4 @@ public class User {
 			return false;
 		return true;
 	}
-
-	
-	
 }
