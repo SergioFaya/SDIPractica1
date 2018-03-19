@@ -48,6 +48,14 @@ public class UsersController {
 		return "login";
 	}
 
+	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+	public String loginAdmin(Model model) {
+		model.addAttribute("admin", new User());
+		return "admin/login";
+	}
+	
+	
+
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signUp(Model model) {
 		model.addAttribute("user", new User());
@@ -67,26 +75,28 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/users/list")
-	public String getList(Model model, Pageable pageable,Principal principal, @RequestParam(value = "", required = false) String searchText) {
+	public String getList(Model model, Pageable pageable, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
-		if (searchText!= null && !searchText.isEmpty()) {
+		if (searchText != null && !searchText.isEmpty()) {
 			users = usersService.searchUsersByNombreAndEmail(pageable, searchText);
 		} else {
-			users = usersService.getAllUsersBut(pageable,principal.getName());
+			users = usersService.getAllUsersBut(pageable, principal.getName());
 		}
 		model.addAttribute("userList", users.getContent());
 		model.addAttribute("page", users);
 		return "users/list";
 	}
-	
+
 	@RequestMapping(value = "/users/details/{id}")
 	public String getDetails(Model model, @PathVariable Long id) {
 		model.addAttribute("user", usersService.getUser(id));
 		return "users/details";
 	}
-	
-	//Es un controlador de User porque los devuelve, aunque al trabajar con request podría ser
-	//a su vez un controlador de FriendShipRequest
+
+	// Es un controlador de User porque los devuelve, aunque al trabajar con request
+	// podría ser
+	// a su vez un controlador de FriendShipRequest
 	@RequestMapping("/friends/list")
 	public String getFriends(Model model, Principal principal, Pageable pageable) {
 		Page<User> requests = usersService.getMyFriends(pageable, principal);
@@ -94,6 +104,5 @@ public class UsersController {
 		model.addAttribute("page", requests);
 		return "friends/list";
 	}
-	
 
 }

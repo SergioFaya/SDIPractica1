@@ -37,10 +37,11 @@ public class User {
 	@OneToMany(mappedBy = "userDestiny")
 	private Set<FriendShipRequest> receivedRequests;
 	
+
 	public User() {
 
 	}
-
+	
 	public User(String email, String name, String lastName) {
 		super();
 		this.email = email;
@@ -147,7 +148,6 @@ public class User {
 			return false;
 		return true;
 	}
-
 	
 	
 }
