@@ -25,6 +25,7 @@ public class FriendShipRequest {
 	}
 
 	public FriendShipRequest(User userSource, User userDestiny) {
+		super();
 		this.userSource = userSource;
 		this.userDestiny = userDestiny;
 	}
