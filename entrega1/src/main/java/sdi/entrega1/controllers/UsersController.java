@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sdi.entrega1.entities.FriendShipRequest;
 import sdi.entrega1.entities.User;
 import sdi.entrega1.services.RolesService;
 import sdi.entrega1.services.SecurityService;
 import sdi.entrega1.services.UsersService;
+import sdi.entrega1.services.friends.request.FriendshipRequestService;
 import sdi.entrega1.validators.SignupFormValidator;
 
 @Controller
@@ -36,6 +38,9 @@ public class UsersController {
 
 	@Autowired
 	private RolesService rolesService;
+	
+	@Autowired
+	private FriendshipRequestService requestService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model, Pageable pagebale) {
@@ -92,7 +97,7 @@ public class UsersController {
 	// a su vez un controlador de FriendShipRequest
 	@RequestMapping("/friends/list")
 	public String getFriends(Model model, Principal principal, Pageable pageable) {
-		Page<User> requests = usersService.getMyFriends(pageable, principal);
+		Page<FriendShipRequest> requests = requestService.getMyFriends(pageable, principal);
 		model.addAttribute("friends", requests.getContent());
 		model.addAttribute("page", requests);
 		return "friends/list";
@@ -130,6 +135,35 @@ public class UsersController {
 			model.addAttribute("error", true);
 			return "redirect:adminLogin?error";
 		}
+	}
+	
+	@RequestMapping("/friends/requests/list")
+	public String getRequests(Model model, Principal principal, Pageable pageable) {
+		Page<FriendShipRequest> requests = requestService.getMyFriendshipRequests(pageable, principal);
+		model.addAttribute("fRequestList", requests.getContent());
+		model.addAttribute("page", requests);
+		return "friends/requests/list";
+	}
+
+	@RequestMapping("/friends/send/request/{id}")
+	public String addRequest(Model model, Principal principal, @PathVariable Long id) {
+		User authenticated, friend;
+		authenticated = usersService.getUserByEmail(principal.getName());
+		friend = usersService.getUser(id);
+		boolean added = requestService.addRequest(authenticated, friend);
+		if (added) {
+			return "/friends/requests/success";
+		}
+		return "/friends/requests/error";
+	}
+
+	@RequestMapping("/friends/accept/request/{id}")
+	public String aceptRequest(Model model, Principal principal, @PathVariable Long id) {
+		User authenticated, friend;
+		authenticated = usersService.getUserByEmail(principal.getName());
+		friend = usersService.getUser(id);
+		requestService.acceptRequest(authenticated, friend);
+		return "redirect:/friends/requests/list";
 	}
 	
 	@RequestMapping(value = "/admin/list/eliminar/{id}")
