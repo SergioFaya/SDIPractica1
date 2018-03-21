@@ -14,6 +14,7 @@ public class FriendShipRequest {
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@ManyToOne
 	private User userSource;
 	@ManyToOne

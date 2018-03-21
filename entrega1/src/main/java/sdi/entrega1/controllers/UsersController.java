@@ -67,23 +67,80 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/users/list")
-	public String getList(Model model, Pageable pageable,Principal principal, @RequestParam(value = "", required = false) String searchText) {
+	public String getList(Model model, Pageable pageable, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
-		if (searchText!= null && !searchText.isEmpty()) {
+		if (searchText != null && !searchText.isEmpty()) {
 			users = usersService.searchUsersByNombreAndEmail(pageable, searchText);
 		} else {
-			users = usersService.getAllUsersBut(pageable,principal.getName());
+			users = usersService.getAllUsersBut(pageable, principal.getName());
 		}
 		model.addAttribute("userList", users.getContent());
 		model.addAttribute("page", users);
 		return "users/list";
 	}
-	
+
 	@RequestMapping(value = "/users/details/{id}")
 	public String getDetails(Model model, @PathVariable Long id) {
 		model.addAttribute("user", usersService.getUser(id));
 		return "users/details";
 	}
+<<<<<<< HEAD
 	
+=======
+
+	// Es un controlador de User porque los devuelve, aunque al trabajar con request
+	// podría ser
+	// a su vez un controlador de FriendShipRequest
+	@RequestMapping("/friends/list")
+	public String getFriends(Model model, Principal principal, Pageable pageable) {
+		Page<User> requests = usersService.getMyFriends(pageable, principal);
+		model.addAttribute("friends", requests.getContent());
+		model.addAttribute("page", requests);
+		return "friends/list";
+	}
+
+	@RequestMapping(value = "/admin/adminLogin", method = RequestMethod.GET)
+	public String loginAdmin(Model model) {
+		model.addAttribute("admin", new User());
+		return "/admin/adminLogin";
+	}
+
+	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
+	public String getAdminList(Model model, Pageable pageable, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+		if (searchText != null && !searchText.isEmpty()) {
+			users = usersService.searchUsersByNombreAndEmail(pageable, searchText);
+		} else {
+			users = usersService.getAllUsersBut(pageable, principal.getName());
+		}
+		model.addAttribute("userList", users.getContent());
+		model.addAttribute("page", users);
+		return "users/list";
+	}
+
+	@RequestMapping(value = "/admin/adminLogin", method = RequestMethod.POST)
+	public String adminLogin(Model model, @RequestParam String email, @RequestParam String password,
+			Pageable pageable) {
+		User user = usersService.getUserByEmail(email);
+
+		if (user != null && usersService.checkPassword(user, password) && user.getRole().equals("ROLE_ADMIN")) {
+			securityService.autoLogin(email, password);
+			return "redirect:/admin/list";
+		} else {
+			model.addAttribute("error", true);
+			return "redirect:adminLogin?error";
+		}
+	}
+	
+	@RequestMapping(value = "/admin/list/eliminar/{id}")
+	public String eliminarUsuario(Model model, @PathVariable Long id, Pageable pageable) {
+		Page<User> usersList = usersService.getAllUsers(pageable);
+		model.addAttribute("usersList", usersList);
+		usersService.deleteUser(id);
+		return "redirect:/admin/list";
+	}
+>>>>>>> manuel
 
 }
