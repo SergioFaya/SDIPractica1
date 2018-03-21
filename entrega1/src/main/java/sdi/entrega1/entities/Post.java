@@ -1,5 +1,7 @@
 package sdi.entrega1.entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,27 +13,41 @@ import javax.persistence.ManyToOne;
 public class Post {
 	@Id
 	@GeneratedValue
-	private long id;	
+	private long id;
 	@ManyToOne
 	private User user;
-	private Date date;
 	private String message;
 	private String title;
 	private String photoPath;
-	
+	private String date;
+
 	public Post() {
 		super();
 	}
-	
+
 	public Post(String title, String message) {
 		this();
-		this.title=title;
+		this.title = title;
 		this.message = message;
-		this.date = new Date();
-	}
+		DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss ");
+		this.date = hourdateFormat.format(new Date());
 		
-	public Post(String title, String message, String photoPath ) {
+	}
+
+	// TEST
+	public Post(String title, String message, User user) {
 		this(title,message);
+		this.user = user;
+	}
+
+	// TEST
+	public Post(String title, String message, User user, String photopath) {
+		this(title,message,user);
+		this.photoPath = photopath;
+	}
+
+	public Post(String title, String message, String photoPath) {
+		this(title, message);
 		this.photoPath = photoPath;
 	}
 
@@ -41,14 +57,6 @@ public class Post {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	public String getMessage() {
@@ -81,7 +89,15 @@ public class Post {
 
 	public void setId(long id) {
 		this.id = id;
-	}	
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 	
 	
 }

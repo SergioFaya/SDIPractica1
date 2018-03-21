@@ -5,8 +5,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sdi.entrega1.entities.Post;
 import sdi.entrega1.entities.User;
 import sdi.entrega1.services.friends.request.FriendshipRequestService;
+import sdi.entrega1.services.posts.PostsService;
 
 @Service
 public class InsertDataSampleService {
@@ -19,6 +21,9 @@ public class InsertDataSampleService {
 	
 	@Autowired
 	private FriendshipRequestService fs;
+	
+	@Autowired
+	private PostsService ps;
 	
 	@PostConstruct
 	public void init() {
@@ -53,7 +58,11 @@ public class InsertDataSampleService {
 		//Peticiones de prueba
 		fs.addRequest(user1, user2);
 		fs.addRequest(user2, user3);
+		//amistad
 		fs.acceptRequest(user3, user2);
+		//publicaciones de prueba
+		ps.createPost(new Post("POST", "MALONE", user1));
+		
 		
 	}
 

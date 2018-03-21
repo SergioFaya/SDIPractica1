@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,12 +34,19 @@ public class PostController {
 		User user = usersService.getUserByEmail(principal.getName());
 		post.setUser(user);
 		postsService.createPost(post);
-		return "redirect:posts/list";
+		return "redirect:/post/list";
 	}
 	
 	@RequestMapping(value = "post/list")
 	public String getPostList(Model model, Principal principal) {
 		List<Post> posts=  postsService.getUserPost(principal.getName());
+		model.addAttribute("posts", posts );
+		return "posts/list";
+	}
+	
+	@RequestMapping(value = "post/list/{id}")
+	public String getPostList(Model model, Principal principal, @PathVariable Long id) {
+		List<Post> posts=  postsService.getUserPost(id);
 		model.addAttribute("posts", posts );
 		return "posts/list";
 	}
