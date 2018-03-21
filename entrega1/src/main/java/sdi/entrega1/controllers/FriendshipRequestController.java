@@ -62,6 +62,10 @@ public class FriendshipRequestController {
 		model.addAttribute("friends", requests.getContent());
 		model.addAttribute("page", requests);
 		return "friends/list";
+
+	
 	}
+	
+	
 
 }
