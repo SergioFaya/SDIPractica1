@@ -26,6 +26,14 @@ public class UsersService {
 	public User getUser(Long id) {
 		return usersRepository.findOne(id);
 	}
+	
+	public boolean checkPassword(User user, String password)
+	{
+		if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
+			return true;
+		}
+		return false;
+	}
 
 	public void addUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

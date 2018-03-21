@@ -13,6 +13,7 @@ public class FriendShipRequest {
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@ManyToOne
 	private User userSource;
 	@ManyToOne
@@ -29,7 +30,15 @@ public class FriendShipRequest {
 		this.userSource = userSource;
 		this.userDestiny = userDestiny;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public boolean isAccepted() {
 		return isAccepted;
 	}
@@ -85,5 +94,4 @@ public class FriendShipRequest {
 		return true;
 	}
 
-	
 }
