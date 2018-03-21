@@ -1,4 +1,4 @@
-package sdi.entrega1.controllers;
+﻿package sdi.entrega1.controllers;
 
 import java.security.Principal;
 import java.util.LinkedList;
@@ -85,9 +85,7 @@ public class UsersController {
 		model.addAttribute("user", usersService.getUser(id));
 		return "users/details";
 	}
-<<<<<<< HEAD
-	
-=======
+
 
 	// Es un controlador de User porque los devuelve, aunque al trabajar con request
 	// podría ser
@@ -141,6 +139,6 @@ public class UsersController {
 		usersService.deleteUser(id);
 		return "redirect:/admin/list";
 	}
->>>>>>> manuel
+
 
 }
