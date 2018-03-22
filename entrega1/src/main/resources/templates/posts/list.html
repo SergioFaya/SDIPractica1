@@ -7,7 +7,7 @@
 <body>
     <nav th:replace="fragments/nav"></nav>
     <div class="container">
-        <h1 th:text="${__#{post.user.list.header.1}__ + __sec:authentication ='principal.username'__}"></h1>
+        <h1 th:text="${'__#{post.user.list.header.1}__ ' + ' __${username}__'}"></h1>
         <div th:each="post: ${posts}">
             <div class="panel panel-default">
                 <div class="panel-heading">

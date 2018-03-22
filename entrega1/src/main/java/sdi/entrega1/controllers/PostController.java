@@ -1,5 +1,9 @@
 package sdi.entrega1.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 
@@ -33,20 +37,47 @@ public class PostController {
 	public String createPost(@ModelAttribute Post post,Principal principal) {
 		User user = usersService.getUserByEmail(principal.getName());
 		post.setUser(user);
+		String imgSource = post.getPhotoPath();
+		if(imgSource != null && imgSource.trim().length() > 0) {
+			try {
+				Files.copy(Paths.get(imgSource), Paths.get("src/main/resources/static/fotossubidas/" + post.getId()),StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		postsService.createPost(post);
 		return "redirect:/post/list";
 	}
 	
+	@RequestMapping(value = "post/add/{url}",  method = RequestMethod.POST)
+	public String createPostWithPhoto(@ModelAttribute Post post,Principal principal, @PathVariable String url) {
+		User user = usersService.getUserByEmail(principal.getName());
+		post.setUser(user);
+		if(url != null && url.trim().length() > 0) {
+			try {
+				Files.copy(Paths.get(url), Paths.get("src/main/resources/static/fotossubidas/" + post.getId()),StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		postsService.createPost(post);
+		return "redirect:/post/list";
+	}
+	
+	
 	@RequestMapping(value = "post/list")
 	public String getPostList(Model model, Principal principal) {
 		List<Post> posts=  postsService.getUserPost(principal.getName());
+		model.addAttribute("username",principal.getName());
 		model.addAttribute("posts", posts );
 		return "posts/list";
 	}
 	
 	@RequestMapping(value = "post/list/{id}")
 	public String getPostList(Model model, Principal principal, @PathVariable Long id) {
-		List<Post> posts=  postsService.getUserPost(id);
+		String email = usersService.getUser(id).getEmail();
+		List<Post> posts=  postsService.getUserPost(email);
+		model.addAttribute("username",email);
 		model.addAttribute("posts", posts );
 		return "posts/list";
 	}

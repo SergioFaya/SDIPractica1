@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Post {
@@ -20,18 +21,18 @@ public class Post {
 	private String title;
 	private String photoPath;
 	private String date;
+	@Transient
+	private DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss ");
 
 	public Post() {
 		super();
+		this.date = hourdateFormat.format(new Date());
 	}
 
 	public Post(String title, String message) {
 		this();
 		this.title = title;
 		this.message = message;
-		DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss ");
-		this.date = hourdateFormat.format(new Date());
-		
 	}
 
 	// TEST
