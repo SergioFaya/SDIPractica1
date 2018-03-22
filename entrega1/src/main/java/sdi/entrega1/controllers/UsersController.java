@@ -91,6 +91,8 @@ public class UsersController {
 		model.addAttribute("admin", new User());
 		return "/admin/adminLogin";
 	}
+	
+	
 
 	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
 	public String getAdminList(Model model, Pageable pageable, Principal principal,

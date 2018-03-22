@@ -14,11 +14,6 @@ import javax.persistence.Transient;
 @Table(name = "user")
 public class User {
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + "]";
-	}
-
 	@Id
 	@GeneratedValue
 	private long id;
@@ -148,6 +143,11 @@ public class User {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + "]";
 	}
 
 }
