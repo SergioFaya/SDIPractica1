@@ -4,12 +4,10 @@
 <body>
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
-		<h2>Bienvenido a la página</h2>
-		<h3>Esta es una zona privada la web</h3>
-		<p>
-			Usuario Autenticado como : <span
-				sec:authentication="principal.username" th:inline="text"> </span>
-		</p>
+		<h2 th:text="#{home.welcome}"></h2>
+		<h3 th:text="#{home.private}"></h3>
+		<p th:text="#{home.userAuthenticatedAs}"></p>
+		<p sec:authentication="principal.username"></p>
 
 	</div>
 	

@@ -12,74 +12,80 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 
-				<li><a href="/" th:text="#{NavBar.label.home}">Home</a></li>
+				<li><a href="/home" th:text="#{NavBar.label.home}">Home</a></li>
 
 
-				<li sec:authorize="isAuthenticated()" id="users-menu" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">
-					<span th:text="#{NavBar.label.users.dropdown.title}"></span><span
+				<li sec:authorize="isAuthenticated()" id="users-menu"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span
+						th:text="#{NavBar.label.users.dropdown.title}"></span><span
 						class="caret"></span></a>
-						
+
 					<ul class="dropdown-menu">
 						<li><a href="/users/list"
 							th:text="#{NavBar.label.users.dropdown.list}"></a></li>
-					</ul>
-				</li>
+					</ul></li>
 
-				<li sec:authorize="isAuthenticated()" id="users-menu" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">
-					<span th:text="#{NavBar.label.friends.dropdown.title}"></span>
-					 <span class="caret"></span></a>
-						
+				<li sec:authorize="isAuthenticated()" id="users-menu"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span
+						th:text="#{NavBar.label.friends.dropdown.title}"></span> <span
+						class="caret"></span></a>
+
 					<ul class="dropdown-menu">
-						<li>
-							<a href="/friends/requests/list"
-								th:text="#{NavBar.label.friends.dropdown.request}">
-							</a>
-						</li>
-						
-						<li>
-							<a href="/friends/list"
-								th:text="#{NavBar.label.friends.dropdown.list}">
-							</a>
-						</li>
-						
-					</ul>
-					
-				</li>
-				<li sec:authorize="isAuthenticated()" id="users-menu" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">
-					<span th:text="#{NavBar.label.posts.dropdown.title}"></span>
-					 <span class="caret"></span></a>
-					 <ul class="dropdown-menu">
-						<li>
-							<a href="/post/add"
-								th:text="#{NavBar.label.posts.dropdown.create}">
-							</a>
-						</li>
-						
-						<li>
-							<a href="/post/list"
-								th:text="#{NavBar.label.posts.dropdown.list}">
-							</a>
-						</li>
-						
-					</ul>
-					
-				</li>	
+						<li><a href="/friends/requests/list"
+							th:text="#{NavBar.label.friends.dropdown.request}"> </a></li>
+
+						<li><a href="/friends/list"
+							th:text="#{NavBar.label.friends.dropdown.list}"> </a></li>
+
+					</ul></li>
+				<li sec:authorize="isAuthenticated()" id="users-menu"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span
+						th:text="#{NavBar.label.posts.dropdown.title}"></span> <span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="/post/add"
+							th:text="#{NavBar.label.posts.dropdown.create}"> </a></li>
+
+						<li><a href="/post/list"
+							th:text="#{NavBar.label.posts.dropdown.list}"> </a></li>
+
+					</ul></li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a id="btnLanguage" href="#"
+					class="dropdown-toggle" data-toggle="dropdown" role="button"
+					aria-haspopup="true" aria-expanded="false"> <span
+						th:text="#{internationalization.change}"></span> <span class="caret"></span>
+				</a>
+					<ul id="languageDropdownMenuButton" class="dropdown-menu">
+						<li><a id="btnEnglish" value="EN"> <img
+								th:src="@{/img/if_uk_flag.png}"
+								style="border: 0; float: left; margin-right: 15px" /> <span
+								th:text="#{internationalization.english}"></span>
+						</a></li>
+						<li><a id="btnSpanish" value="ES"> <img
+								th:src="@{/img/if_spain_flag.png}"
+								style="border: 0; float: left; margin-right: 15px" /> <span
+								th:text="#{internationalization.spanish}"></span>
+						</a></li>
+					</ul></li>
+
 
 				<li sec:authorize="!isAuthenticated()"><a href="/signup"> <span
 						class="glyphicon glyphicon-user"
 						th:text="#{NavBar.label.register}"></span>
 				</a></li>
 				<li sec:authorize="!isAuthenticated()"><a href="/login"> <span
-						class="glyphicon glyphicon-log-in" th:text="#{NavBar.label.logIn}"></span>
+						th:text="#{NavBar.label.logIn}"
+						class="glyphicon glyphicon-log-in" ></span>
 				</a></li>
 				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
-						class="glyphicon glyphicon-log-out" th:text="#{NavBar.label.logOut}"></span>
+						class="glyphicon glyphicon-log-out"
+						th:text="#{NavBar.label.logOut}"></span>
 				</a></li>
 			</ul>
 		</div>
