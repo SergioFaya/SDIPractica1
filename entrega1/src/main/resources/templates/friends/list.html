@@ -12,7 +12,7 @@
                 </div>
                 <div class="panel-body">
                     <a th:href = "${'/post/list/' + request.userDestiny.id}" th:text="${request.userDestiny.name + request.userDestiny.lastName}"></a>
-                    <a th:href=" ${'/friends/requests/details/' + request.userDestiny.id}"
+                    <a th:href=" ${'/users/details/' + request.userDestiny.id}"
                      class="btn btn-primary" th:text="#{users.friends.list.details}"></a>
                 </div>
             </div>

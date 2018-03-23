@@ -23,6 +23,10 @@
                             <p th:text="${'__#{post.user.list.createdby}__ ' + '__${post.user.email}__'}"></p>
                             <p th:text="${'__#{post.user.list.ondate}__ '+ '__${post.date}__'}"></p>
                         </dd>
+                        <div th:if="${post.photoPath != null}">
+                        <dt th:text ="#{post.user.list.photo}"></dt>
+                        <dd> <img th:alt = "${post.id}" th:src="${'/fotossubidas/' + post.id}"/>  </dd>
+                        </div>                        
                     </dl>
                 </div>
             </div>
