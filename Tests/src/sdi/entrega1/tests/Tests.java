@@ -13,8 +13,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Tests {
 	//static String PathFirefox = "C:\\Users\\Manuel\\Downloads\\Firefox46.0.win\\Firefox46.win\\FirefoxPortable.exe";
-	static String PathFirefox = "C:\\Users\\Manuel\\Documents\\GitHub\\SDI\\SDIPractica1\\Tests\\FirefoxPortable.exe";
-
+	//static String PathFirefox = "C:\\Users\\Manuel\\Documents\\GitHub\\SDI\\SDIPractica1\\Tests\\FirefoxPortable.exe";
+	static String PathFirefox = ".\\Firefox46.win\\FirefoxPortable.exe";
 	static WebDriver driver = getDriver(PathFirefox);
 	static String URL = "http://localhost:8090";
 
