@@ -32,10 +32,10 @@ public interface FriendShipRequestRepo extends CrudRepository<FriendShipRequest,
 	
 	FriendShipRequest findByUserSourceAndUserDestiny(User source,User destiny);
 	
-//	@Modifying
-//	@Transactional
-//	@Query("Update FriendShipRequest f SET f.isAccepted = true WHERE (f.user_Source.email = ?1 and f.user_Destiny.email = ?2)")
-//	void updateRequest(String emailSource, String emailDestiny);
+	@Modifying
+	@Transactional
+	@Query("Update FriendShipRequest f SET f.isAccepted = true WHERE (f.userSource.email = ?1 and f.userDestiny.email = ?2)")
+	void updateRequest(String emailSource, String emailDestiny);
 
 	
 

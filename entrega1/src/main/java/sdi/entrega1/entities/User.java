@@ -38,6 +38,14 @@ public class User {
 	public User() {
 	}
 	
+	public Set<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(Set<Post> posts) {
+		this.posts = posts;
+	}
+
 	public User(String email, String name, String lastName) {
 		super();
 		this.email = email;

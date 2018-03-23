@@ -40,17 +40,17 @@ public class FriendshipRequestService {
 	}
 
 	public void acceptRequest(User authenticated, User friend) {
-		//friendshipRepo.updateRequest(authenticated.getEmail(),friend.getEmail());
-		FriendShipRequest request = friendshipRepo.findByUserSourceAndUserDestiny(authenticated, friend);
-		if(request != null) {friendshipRepo.delete(request);}
-		FriendShipRequest inverseRequest = friendshipRepo.findByUserSourceAndUserDestiny(friend,authenticated);
-		if(inverseRequest != null) {friendshipRepo.delete(inverseRequest);}
-		request = new FriendShipRequest(authenticated, friend);
-		request.setAccepted(true);
-		inverseRequest = new FriendShipRequest(friend, authenticated);
-		inverseRequest.setAccepted(true);
-		friendshipRepo.save(request);
-		friendshipRepo.save(inverseRequest);
+		friendshipRepo.updateRequest(authenticated.getEmail(),friend.getEmail());
+//		FriendShipRequest request = friendshipRepo.findByUserSourceAndUserDestiny(authenticated, friend);
+//		if(request != null) {friendshipRepo.delete(request);}
+//		FriendShipRequest inverseRequest = friendshipRepo.findByUserSourceAndUserDestiny(friend,authenticated);
+//		if(inverseRequest != null) {friendshipRepo.delete(inverseRequest);}
+//		request = new FriendShipRequest(authenticated, friend);
+//		request.setAccepted(true);
+//		inverseRequest = new FriendShipRequest(friend, authenticated);
+//		inverseRequest.setAccepted(true);
+//		friendshipRepo.save(request);
+//		friendshipRepo.save(inverseRequest);
 	}
 
 	
