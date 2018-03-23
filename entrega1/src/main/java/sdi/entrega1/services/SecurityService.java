@@ -19,6 +19,10 @@ public class SecurityService {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
+	
+	public Logger getLogger() {
+		return logger;
+	}
 
 	public String findLoggedInEmail() {
 		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
@@ -36,7 +40,7 @@ public class SecurityService {
 		authenticationManager.authenticate(aToken);
 		if (aToken.isAuthenticated()) {
 			SecurityContextHolder.getContext().setAuthentication(aToken);
-			logger.debug(String.format("Auto login %s successfully!", email));
+			logger.info(String.format("Inicio de sesion automático del usuario %s", email));
 		}
 	}
 

@@ -37,8 +37,8 @@
 							<div class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
 								<button class="btn btn-default dropdown-toggle" type="button"
 									id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="true">
-									Acciones <span class="caret"></span>
+									aria-expanded="true" th:text="#{users.table.actions}">
+									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 									<li><a th:href="${'/friends/send/request/' + user.id}"

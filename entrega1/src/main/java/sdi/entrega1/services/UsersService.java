@@ -1,9 +1,10 @@
 package sdi.entrega1.services;
 
 
-import java.security.Principal;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,6 +17,8 @@ import sdi.entrega1.repositories.UsersRepository;
 
 @Service
 public class UsersService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
 	@Autowired
 	private UsersRepository usersRepository;
@@ -32,16 +35,19 @@ public class UsersService {
 		if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
 			return true;
 		}
+		logger.warn("Las contraseñas del usuario %s no coinciden", user.getEmail());
 		return false;
 	}
 
 	public void addUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		usersRepository.save(user);
+		logger.info("Usuario %s registrado correctamente", user.getEmail());
 	}
 
 	public void deleteUser(Long id) {
 		usersRepository.delete(id);
+		logger.info("El usuario con id %d ha sido borrado", id);
 	}
 
 	public User getUserByEmail(String email) {
