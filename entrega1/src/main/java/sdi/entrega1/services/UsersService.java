@@ -33,19 +33,19 @@ public class UsersService {
 		if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
 			return true;
 		}
-		logger.warn("Las contraseñas del usuario %s no coinciden", user.getEmail());
+		logger.warn("Las contraseñas del usuario "+user.getEmail()+" no coinciden");
 		return false;
 	}
 
 	public void addUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		usersRepository.save(user);
-		logger.info("Usuario %s registrado correctamente", user.getEmail());
+		logger.info("Usuario "+user.getEmail()+" registrado correctamente" );
 	}
 
 	public void deleteUser(Long id) {
 		usersRepository.delete(id);
-		logger.info("El usuario con id %d ha sido borrado", id);
+		logger.info("El usuario con id "+id+" ha sido borrado");
 	}
 
 	public User getUserByEmail(String email) {

@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import sdi.entrega1.entities.FriendShipRequest;
-import sdi.entrega1.entities.User;
 
 public interface FriendShipRequestRepo extends CrudRepository<FriendShipRequest, Long> {
 
@@ -28,8 +27,6 @@ public interface FriendShipRequestRepo extends CrudRepository<FriendShipRequest,
 
 	@Query("Select f from FriendShipRequest f where f.userSource.email = ?1 and f.isAccepted = true")
 	Page<FriendShipRequest> findFriends(Pageable pageable, String email);
-
-	FriendShipRequest findByUserSourceAndUserDestiny(User source, User destiny);
 
 	@Modifying
 	@Transactional

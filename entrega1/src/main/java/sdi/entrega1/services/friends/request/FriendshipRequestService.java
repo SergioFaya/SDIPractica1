@@ -31,11 +31,10 @@ public class FriendshipRequestService {
 		List<FriendShipRequest> repoRequest = friendshipRepo.isInDb(origin.getEmail(), destiny.getEmail());
 		if (repoRequest == null || repoRequest.isEmpty()) {
 			friendshipRepo.save(new FriendShipRequest(origin, destiny));
-			logger.info("El usuario %s ha enviado una petición de amistad a %s", origin.getEmail(), destiny.getEmail());
+			logger.info("El usuario "+origin.getEmail()+" ha enviado una petición de amistad a "+destiny.getEmail() );
 			return true;
 		}
-		logger.info("El usuario %s intentó enviar una petición de amistad a %s pero falló", origin.getEmail(),
-				destiny.getEmail());
+		logger.info("El usuario "+origin.getEmail()+" intentó enviar una petición de amistad a "+destiny.getEmail()+" pero falló");
 		return false;
 	}
 
@@ -49,11 +48,11 @@ public class FriendshipRequestService {
 
 	public void acceptRequest(User authenticated, User friend) {
 		// friendshipRepo.updateRequest(authenticated.getEmail(),friend.getEmail());
-		FriendShipRequest request = friendshipRepo.findByUserSourceAndUserDestiny(authenticated, friend);
+		FriendShipRequest request = friendshipRepo.findRequest(authenticated.getEmail(), friend.getEmail());
 		if (request != null) {
 			friendshipRepo.delete(request);
 		}
-		FriendShipRequest inverseRequest = friendshipRepo.findByUserSourceAndUserDestiny(friend, authenticated);
+		FriendShipRequest inverseRequest = friendshipRepo.findRequest(friend.getEmail(), authenticated.getEmail());
 		if (inverseRequest != null) {
 			friendshipRepo.delete(inverseRequest);
 		}
@@ -63,8 +62,7 @@ public class FriendshipRequestService {
 		inverseRequest.setAccepted(true);
 		friendshipRepo.save(request);
 		friendshipRepo.save(inverseRequest);
-		logger.info("El usuario %s ha aceptado una petición de amistad de %s", authenticated.getEmail(),
-				friend.getEmail());
+		logger.info("El usuario "+authenticated.getEmail()+" ha aceptado una petición de amistad de "+friend.getEmail());
 	}
 
 	public FriendShipRequest existsRequest(User authenticated, User friend) {

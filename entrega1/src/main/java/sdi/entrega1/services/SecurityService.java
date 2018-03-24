@@ -40,7 +40,7 @@ public class SecurityService {
 		authenticationManager.authenticate(aToken);
 		if (aToken.isAuthenticated()) {
 			SecurityContextHolder.getContext().setAuthentication(aToken);
-			logger.info(String.format("Inicio de sesion automático del usuario %s", email));
+			logger.info(String.format("Inicio de sesion automático del usuario"+ email));
 		}
 	}
 
