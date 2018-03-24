@@ -10,7 +10,7 @@
                 <h2 th:text="#{post.form.create.h2}"></h2>
             </div>
             <div class="panel-body">
-                <form id = "post-form" class="form-horizontal" action="/post/add" method="post">
+                <form id = "post-form" class="form-horizontal" action="/post/add" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-sm-6">
                             <input th:placeholder="#{post.form.create.title}" type="text" required="required" class="form-control" name="title" id="title" autofocus="autofocus" />
@@ -22,7 +22,7 @@
                                 style="width: 100%"></textarea>
                         </div>
                     </div>
-                    <input id="input-photo" type="file" class="form-control-file" name="photoPath" >
+                    <input id="input-photo" type="file" class="form-control-file" name="photoPath" accept=".png" >
                     <img id="preview" src="#" alt="Image uploaded" />
                     <script>
                         $("#input-photo").change(function () {

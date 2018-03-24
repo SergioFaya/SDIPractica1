@@ -1,6 +1,5 @@
 package sdi.entrega1.services;
 
-
 import java.util.LinkedList;
 
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ import sdi.entrega1.repositories.UsersRepository;
 
 @Service
 public class UsersService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
 	@Autowired
@@ -29,10 +28,9 @@ public class UsersService {
 	public User getUser(Long id) {
 		return usersRepository.findOne(id);
 	}
-	
-	public boolean checkPassword(User user, String password)
-	{
-		if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
+
+	public boolean checkPassword(User user, String password) {
+		if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
 			return true;
 		}
 		logger.warn("Las contraseñas del usuario %s no coinciden", user.getEmail());
@@ -57,17 +55,16 @@ public class UsersService {
 	public Page<User> getAllUsers(Pageable pageable) {
 		return usersRepository.findAll(pageable);
 	}
-	
-	public Page<User> getAllUsersBut(Pageable pageable, String email) { 
-		return usersRepository.searchAllButUser(pageable,email);
+
+	public Page<User> getAllUsersBut(Pageable pageable, String email) {
+		return usersRepository.searchAllButUser(pageable, email);
 	}
-	
-		
-	public Page<User> searchUsersByNombreAndEmail(Pageable pageable, String searchText){
+
+	public Page<User> searchUsersByNombreAndEmail(Pageable pageable, String searchText) {
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
 		searchText = "%" + searchText + "%";
 		users = usersRepository.searchByNombreAndEmail(pageable, searchText);
 		return users;
 	}
-	
+
 }

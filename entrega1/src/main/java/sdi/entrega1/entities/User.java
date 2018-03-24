@@ -25,19 +25,19 @@ public class User {
 	@Transient
 	private String passwordConfirm;
 	private String role;
-	
+
 	@OneToMany(mappedBy = "userSource")
 	private Set<FriendShipRequest> sentRequests;
-	
+
 	@OneToMany(mappedBy = "userDestiny")
 	private Set<FriendShipRequest> receivedRequests;
-	
+
 	@OneToMany(mappedBy = "user")
 	private Set<Post> posts;
-	
+
 	public User() {
 	}
-	
+
 	public Set<Post> getPosts() {
 		return posts;
 	}
@@ -104,7 +104,7 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
 	public String getRole() {
 		return role;
 	}

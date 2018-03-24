@@ -9,15 +9,12 @@
 		<p th:text="#{users.description}"></p>
 		<form class="navbar-form" action="/users/list">
 			<div class="form-group">
-				<input name="searchText" type="text" class="form-control" size="50"
-					placeholder="Buscar por nombre o email del usuario">
+				<input name="searchText" type="text" class="form-control" size="50" placeholder="Buscar por nombre o email del usuario">
 			</div>
-			<button type="submit" class="btn btn-default"
-				th:text="#{users.search}"></button>
+			<button type="submit" class="btn btn-default" th:text="#{users.search}"></button>
 		</form>
 		<div class="table-responsive">
-			<table class="table table-hover" id="tableUsers"
-				th:fragment="tableUsers">
+			<table class="table table-hover" id="tableUsers" th:fragment="tableUsers">
 				<thead>
 					<tr>
 						<th th:text="#{users.table.name}"></th>
@@ -30,21 +27,20 @@
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
 						<td>
-							<a th:href="${'/admin/list/eliminar/' + user.id}" 
-								sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger"
-								th:text="#{Boton.eliminar}"></a>
-							
+							<a th:href="${'/admin/list/eliminar/' + user.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger" th:text="#{Boton.eliminar}"></a>
+
 							<div class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
-								<button class="btn btn-default dropdown-toggle" type="button"
-									id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="true" th:text="#{users.table.actions}">
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+								 aria-expanded="true" th:text="#{users.table.actions}">
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li><a th:href="${'/friends/send/request/' + user.id}"
-										th:text="#{users.table.send}"></a></li>
-									<li><a th:href="${'/users/details/' + user.id}"
-										th:text="#{users.table.profile}"></a></li>
+									<li>
+										<a th:href="${'/friends/send/request/' + user.id}" th:text="#{users.table.send}"></a>
+									</li>
+									<li>
+										<a th:href="${'/users/details/' + user.id}" th:text="#{users.table.profile}"></a>
+									</li>
 								</ul>
 							</div>
 						</td>
@@ -57,4 +53,5 @@
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>
+
 </html>

@@ -12,19 +12,19 @@ import sdi.entrega1.services.posts.PostsService;
 
 @Service
 public class InsertDataSampleService {
-	
+
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private RolesService rolesService;
-	
+
 	@Autowired
 	private FriendshipRequestService fs;
-	
+
 	@Autowired
 	private PostsService ps;
-	
+
 	@PostConstruct
 	public void init() {
 		User user1 = new User("pedro@gmail.com", "Pedro", "Díaz");
@@ -45,25 +45,39 @@ public class InsertDataSampleService {
 		User user6 = new User("edward@gmail.com", "Edward", "Núñez");
 		user6.setPassword("123456");
 		user6.setRole(rolesService.getRoles()[1]);
-			
-		
+		User user7 = new User("manuel@gmail.com", "Manuel", "García");
+		user7.setPassword("123456");
+		user7.setRole(rolesService.getRoles()[0]);
+		User user8 = new User("sergio@gmail.com", "Sergio", "Faya");
+		user8.setPassword("123456");
+		user8.setRole(rolesService.getRoles()[0]);
+		User user9 = new User("paco@gmail.com", "Francisco", "Domínguez");
+		user9.setPassword("123456");
+		user9.setRole(rolesService.getRoles()[0]);
+
 		usersService.addUser(user1);
 		usersService.addUser(user2);
 		usersService.addUser(user3);
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
-		
-		
-		//Peticiones de prueba
+		usersService.addUser(user7);
+		usersService.addUser(user8);
+		usersService.addUser(user9);
+
+		// Peticiones de prueba
 		fs.addRequest(user1, user2);
 		fs.addRequest(user2, user3);
-		//amistad
+		// Peticion bidireccional
+		fs.addRequest(user7, user8);
+		fs.addRequest(user8, user7);
+		// amistad
 		fs.acceptRequest(user3, user2);
-		//publicaciones de prueba
-		ps.createPost(new Post("POST", "MALONE", user1));
-		
-		
+		// publicaciones de prueba
+		ps.createPost(new Post("Publicacion1", "Publicacion de Pedro", user1));
+		ps.createPost(new Post("Publicacion2", "Publicacion de Francisco", user8));
+		ps.createPost(new Post("Publicacion3", "Publicacion de Maria", user1));
+
 	}
 
 }

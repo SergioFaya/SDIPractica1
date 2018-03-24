@@ -16,27 +16,27 @@ import sdi.entrega1.entities.User;
 public interface FriendShipRequestRepo extends CrudRepository<FriendShipRequest, Long> {
 
 	Page<FriendShipRequest> findAll(Pageable pageable);
-	
+
 	@Query("Select f from FriendShipRequest f where f.userSource.email = ?1 and f.userDestiny.email = ?2")
 	List<FriendShipRequest> isInDb(String emailOrigin, String emailDestiny);
 
 	@Query("Select f from FriendShipRequest f where f.userDestiny.email = ?1 and f.isAccepted = false")
 	Page<FriendShipRequest> findAllByUserDestiny(Pageable pageable, String email);
-	
+
 	@Query("Select f from FriendShipRequest f where f.userSource.email = ?1 and f.isAccepted = false")
 	Page<FriendShipRequest> findAllByUserSource(Pageable pageable, String email);
 
 	@Query("Select f from FriendShipRequest f where f.userSource.email = ?1 and f.isAccepted = true")
 	Page<FriendShipRequest> findFriends(Pageable pageable, String email);
 
-	
-	FriendShipRequest findByUserSourceAndUserDestiny(User source,User destiny);
-	
+	FriendShipRequest findByUserSourceAndUserDestiny(User source, User destiny);
+
 	@Modifying
 	@Transactional
 	@Query("Update FriendShipRequest f SET f.isAccepted = true WHERE (f.userSource.email = ?1 and f.userDestiny.email = ?2)")
 	void updateRequest(String emailSource, String emailDestiny);
 
-	
+	@Query("Select f from FriendShipRequest f where f.userSource.email = ?1 and f.userDestiny.email = ?2")
+	FriendShipRequest findRequest(String emailSource, String emailDestiny);
 
 }

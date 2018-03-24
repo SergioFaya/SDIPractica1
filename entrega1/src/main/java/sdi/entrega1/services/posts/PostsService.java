@@ -14,13 +14,14 @@ import sdi.entrega1.repositories.PostRepository;
 public class PostsService {
 
 	private static final Logger logger = LoggerFactory.getLogger(PostsService.class);
-	
+
 	@Autowired
 	private PostRepository postRepo;
-	
+
 	public void createPost(Post post) {
-		postRepo.save(post);	
-		logger.info("El usuario %s ha creado una publicación con título %s", post.getUser().getEmail(), post.getTitle());
+		postRepo.save(post);
+		logger.info("El usuario %s ha creado una publicación con título %s", post.getUser().getEmail(),
+				post.getTitle());
 	}
 
 	public List<Post> getUserPost(String email) {

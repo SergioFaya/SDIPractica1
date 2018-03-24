@@ -37,11 +37,12 @@ public class FriendshipRequestController {
 		User authenticated, friend;
 		authenticated = userService.getUserByEmail(principal.getName());
 		friend = userService.getUser(id);
-		boolean added = requestService.addRequest(authenticated, friend);
-		if (added) {
-			return "/friends/requests/success";
+		if (requestService.existsRequest(authenticated, friend) == null) {
+			requestService.addRequest(authenticated, friend);
+			return "redirect:/friends/list?success";
 		}
-		return "/friends/requests/error";
+		return "redirect:/friends/list?error";
+
 	}
 
 	@RequestMapping("/friends/accept/request/{id}")
@@ -63,9 +64,6 @@ public class FriendshipRequestController {
 		model.addAttribute("page", requests);
 		return "friends/list";
 
-	
 	}
-	
-	
 
 }

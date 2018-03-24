@@ -19,7 +19,7 @@ public class SecurityService {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
-	
+
 	public Logger getLogger() {
 		return logger;
 	}
@@ -31,10 +31,10 @@ public class SecurityService {
 		}
 		return null;
 	}
-	
+
 	public void autoLogin(String email, String password) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-	
+
 		UsernamePasswordAuthenticationToken aToken = new UsernamePasswordAuthenticationToken(userDetails, password,
 				userDetails.getAuthorities());
 		authenticationManager.authenticate(aToken);

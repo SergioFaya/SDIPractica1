@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import sdi.entrega1.entities.Post;
 
-public interface PostRepository extends CrudRepository<Post,Long>{
+public interface PostRepository extends CrudRepository<Post, Long> {
 
 	@Query("Select p from Post p where p.user.email = ?1")
 	List<Post> findAllOfUser(String email);

@@ -22,7 +22,7 @@ public class Post {
 	private String photoPath;
 	private String date;
 	@Transient
-	private DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss ");
+	private DateFormat hourdateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
 	public Post() {
 		super();
@@ -37,13 +37,13 @@ public class Post {
 
 	// TEST
 	public Post(String title, String message, User user) {
-		this(title,message);
+		this(title, message);
 		this.user = user;
 	}
 
 	// TEST
 	public Post(String title, String message, User user, String photopath) {
-		this(title,message,user);
+		this(title, message, user);
 		this.photoPath = photopath;
 	}
 
@@ -99,6 +99,5 @@ public class Post {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
-	
+
 }

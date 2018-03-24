@@ -36,7 +36,7 @@ public class UsersController {
 
 	@Autowired
 	private RolesService rolesService;
-	
+
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model, Pageable pagebale) {
 		return "home";
@@ -91,8 +91,6 @@ public class UsersController {
 		model.addAttribute("admin", new User());
 		return "/admin/adminLogin";
 	}
-	
-	
 
 	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
 	public String getAdminList(Model model, Pageable pageable, Principal principal,
@@ -121,8 +119,7 @@ public class UsersController {
 			return "redirect:adminLogin?error";
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/admin/list/eliminar/{id}")
 	public String eliminarUsuario(Model model, @PathVariable Long id, Pageable pageable) {
 		Page<User> usersList = usersService.getAllUsers(pageable);
@@ -130,6 +127,5 @@ public class UsersController {
 		usersService.deleteUser(id);
 		return "redirect:/admin/list";
 	}
-
 
 }

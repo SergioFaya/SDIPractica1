@@ -25,7 +25,7 @@
                         </dd>
                         <div th:if="${post.photoPath != null}">
                         <dt th:text ="#{post.user.list.photo}"></dt>
-                        <dd> <img th:alt = "${post.id}" th:src="${'/fotossubidas/' + post.id}"/>  </dd>
+                        <dd> <img th:alt = "${post.id}" th:src="${'/fotossubidas/' + '__${post.getDate()}__' +'-'+ '__${post.getUser().getId()}__' +'.png'}"/>  </dd>
                         </div>                        
                     </dl>
                 </div>
