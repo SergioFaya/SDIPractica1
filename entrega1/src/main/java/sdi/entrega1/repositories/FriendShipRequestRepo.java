@@ -35,5 +35,8 @@ public interface FriendShipRequestRepo extends CrudRepository<FriendShipRequest,
 
 	@Query("Select f from FriendShipRequest f where f.userSource.email = ?1 and f.userDestiny.email = ?2")
 	FriendShipRequest findRequest(String emailSource, String emailDestiny);
-
+	
+	@Query("Select f from FriendShipRequest f where (f.userSource.email = ?1 and f.userDestiny.email = ?2 and f.isAccepted = true)"
+			+ "OR (f.userSource.email = ?2 and f.userDestiny.email = ?1 and f.isAccepted = true)")
+	List<FriendShipRequest> areFriends(String user1,String user2);
 }

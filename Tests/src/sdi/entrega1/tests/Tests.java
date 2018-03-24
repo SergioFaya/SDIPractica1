@@ -1,5 +1,7 @@
 package sdi.entrega1.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -11,10 +13,13 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import sdi.entrega1.tests.pageobjects.PO_Friends_List;
 import sdi.entrega1.tests.pageobjects.PO_HomeView;
 import sdi.entrega1.tests.pageobjects.PO_LoginView;
 import sdi.entrega1.tests.pageobjects.PO_NavView;
+import sdi.entrega1.tests.pageobjects.PO_Post;
 import sdi.entrega1.tests.pageobjects.PO_RegisterView;
+import sdi.entrega1.tests.pageobjects.PO_Requests_List;
 import sdi.entrega1.tests.pageobjects.PO_Users_List;
 import sdi.entrega1.tests.pageobjects.PO_View;
 
@@ -22,6 +27,7 @@ import sdi.entrega1.tests.pageobjects.PO_View;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Tests {
 	static String PathFirefox = ".\\Firefox46.win\\FirefoxPortable.exe";
+	static String PathPhoto = ".\\img\\gato.png";
 	static WebDriver driver = getDriver(PathFirefox);
 	static String URL = "http://localhost:8090";
 
@@ -83,7 +89,7 @@ public class Tests {
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456789");
 		PO_View.checkElement(driver, "text", "Las credenciales de inicio de sesión no son correctas.");
 	}
-	
+
 	@Test
 	public void PR31_LisUsrVal() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
@@ -92,13 +98,13 @@ public class Tests {
 		PO_NavView.clickDropdown(driver, "users-menu");
 		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
 	}
-	
+
 	@Test
 	public void PR32_ListUsrInval() {
-		driver.navigate().to(URL+"/users/list");
+		driver.navigate().to(URL + "/users/list");
 		PO_View.checkElement(driver, "text", "Identifícate como usuario");
 	}
-	
+
 	@Test
 	public void PR41_BusUsrVal() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
@@ -109,13 +115,104 @@ public class Tests {
 		PO_Users_List.searchUsers(driver, "mar");
 		assertTrue(PO_Users_List.checkMartaYMaria(driver));
 	}
-	
+
 	@Test
 	public void PR51_InvVal() throws Exception {
-		driver.navigate().to(URL+"login");
+		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
-		PO_Users_List.clickAccion(driver);
-		PO_HomeView.clickOption(driver, "friends/send/request/","","");
+		PO_Users_List.clickAccion(driver, "btn4");
+		PO_HomeView.clickOption(driver, "friends/send/request/4", "class", "alert alert-success");
 	}
 
+	@Test
+	public void PR52_InvInVal() throws Exception {
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		// Envia a marta
+		PO_Users_List.clickAccion(driver, "btn4");
+		PO_HomeView.clickOption(driver, "friends/send/request/4", "class", "alert alert-danger");
+	}
+
+	@Test
+	public void PR61_ListIvnVal() throws Exception {
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "marta@gmail.com", "123456");
+		driver.navigate().to(URL + "/friends/requests/list");
+		assertTrue(PO_Requests_List.isInRequest(driver, "id-pedro@gmail.com"));
+	}
+
+	@Test
+	public void PR71_AcepIvnVal() throws Exception {
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "marta@gmail.com", "123456");
+		driver.navigate().to(URL + "/friends/requests/list");
+		PO_HomeView.clickOption(driver, "friends/accept/request/7", "id", "id-pedro@gmail.com");
+		driver.navigate().to(URL + "/friends/requests/list");
+	}
+
+	@Test
+	public void PR81_ListAmiVal() throws Exception {
+		driver.navigate().to(URL + "/login");
+		// lucas tiene amigos precargados
+		PO_LoginView.fillForm(driver, "lucas@gmail.com", "123456");
+		driver.navigate().to(URL + "/friends/list");
+		assertTrue(PO_Friends_List.isInRequest(driver, "id-maria@gmail.com"));
+	}
+
+	@Test
+	public void PR91_PubVal() throws Exception {
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		driver.navigate().to(URL + "/post/add");
+		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!");
+	}
+	
+	@Test
+	public void Pr101_LisPubVal() throws Exception {
+		PR91_PubVal();
+		driver.navigate().to(URL + "/post/list");
+		assertTrue(PO_Post.isInListOfPosts(driver,"TestPR91"));
+	}
+	
+	@Test
+	public void Pr111_LisPubAmiVal() throws Exception {
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "lucas@gmail.com", "123456");
+		driver.navigate().to(URL + "/friends/list");
+		PO_HomeView.clickOption(driver, "post/list/3", "id", "maria@gmail.com");
+	}
+	
+	@Test
+	public void Pr112_LisPubAmiVal() throws Exception {
+		//usamos a pedro porque no tiene amigos
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		driver.navigate().to(URL + "/post/list/3");
+		String URL = driver.getCurrentUrl();
+		assertEquals(URL, "http://localhost:8090/error" );
+	}
+	
+	@Test
+	public void PR121_PubFot1Val() throws Exception {
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		driver.navigate().to(URL + "/post/add");
+		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!", PathPhoto);
+	}
+	
+	@Test
+	public void PR121_PubFot2Val() throws Exception {
+		PR91_PubVal();
+	}
+	/*
+	13.1 [AdInVal] Inicio de sesión como administrador con datos válidos.
+	13.2 [AdInInVal] Inicio de sesión como administrador con datos inválidos (usar los datos de un usuario
+	que no tenga perfil administrador).
+	14.1 [AdLisUsrVal] Desde un usuario identificado en sesión como administrador listar a todos los
+	usuarios de la aplicación.
+	15.1 [AdBorUsrVal] Desde un usuario identificado en sesión como administrador eliminar un usuario
+	existente en la aplicación.
+	15.2 [AdBorUsrInVal] Intento de acceso vía URL al borrado de un usuario existente en la aplicación.
+	Debe utilizarse un usuario identif
+	*/
 }

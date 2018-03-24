@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sdi.entrega1.entities.Post;
 import sdi.entrega1.entities.User;
 import sdi.entrega1.services.UsersService;
+import sdi.entrega1.services.friends.request.FriendshipRequestService;
 import sdi.entrega1.services.posts.PostsService;
 
 @Controller
@@ -29,6 +30,7 @@ public class PostController {
 	private PostsService postsService;
 	@Autowired
 	private UsersService usersService;
+	@Autowired FriendshipRequestService frService;
 
 	@RequestMapping(value = "post/add")
 	public String getPostForm(Model model) {
@@ -67,6 +69,9 @@ public class PostController {
 	@RequestMapping(value = "post/list/{id}")
 	public String getPostList(Model model, Principal principal, @PathVariable Long id) {
 		String email = usersService.getUser(id).getEmail();
+		if(!frService.areFriends(principal.getName(), email)) {
+			return "redirect:/error";
+		}
 		List<Post> posts = postsService.getUserPost(email);
 		model.addAttribute("username", email);
 		model.addAttribute("posts", posts);

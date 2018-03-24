@@ -20,8 +20,13 @@ public class PO_Users_List extends PO_View{
 		return maria != null && marta != null;
 	}
 	
-	public static void clickAccion(WebDriver driver) {
-		WebElement btnAccion = driver.findElement(By.id("btn4"));
+	public static void sendRequest(WebDriver driver, String buttonId) {
+		WebElement btn = driver.findElement(By.id(buttonId));
+		
+	}
+	
+	public static void clickAccion(WebDriver driver,String btnId) {
+		WebElement btnAccion = driver.findElement(By.id(btnId));
 		btnAccion.click();
 	}
 	

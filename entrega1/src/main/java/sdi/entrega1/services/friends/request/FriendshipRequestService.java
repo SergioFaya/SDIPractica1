@@ -68,6 +68,10 @@ public class FriendshipRequestService {
 	public FriendShipRequest existsRequest(User authenticated, User friend) {
 		return friendshipRepo.findRequest(authenticated.getEmail(), friend.getEmail());
 	}
+	
+	public boolean areFriends(String user1,String user2) {
+		return friendshipRepo.areFriends(user1,user2).size() >= 1 ;
+	}
 
 
 }

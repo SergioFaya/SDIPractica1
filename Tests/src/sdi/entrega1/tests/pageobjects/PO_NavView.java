@@ -34,6 +34,7 @@ public class PO_NavView extends PO_View {
 		// Tiene que haber un s�lo elemento.
 		assertTrue(elementos.size() == 1);
 	}
+	
 
 	/**
 	 * Selecciona el enlace de idioma correspondiente al texto textLanguage
@@ -60,7 +61,6 @@ public class PO_NavView extends PO_View {
 		WebElement dropdownMenu = driver.findElement(By.id(id));
 		dropdownMenu.click();
 	}
-
-	
+		
 	
 }

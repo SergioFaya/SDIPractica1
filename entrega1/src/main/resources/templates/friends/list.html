@@ -14,7 +14,7 @@
         <div th:each="request: ${friends}">
             <div class="panel panel-default">
                 <div class="panel-heading" >
-                    <h3 class="panel-title" th:text="${request.userDestiny.email}"></h3>
+                    <h3 class="panel-title" th:text="${request.userDestiny.email}" th:id = "${'id-'+'__${request.userDestiny.email}__'}"></h3>
                 </div>
                 <div class="panel-body">
                     <a th:href = "${'/post/list/' + request.userDestiny.id}" th:text="${request.userDestiny.name + request.userDestiny.lastName}"></a>

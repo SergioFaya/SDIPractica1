@@ -26,7 +26,7 @@
 							th:text="#{NavBar.label.users.dropdown.list}"></a></li>
 					</ul></li>
 
-				<li sec:authorize="isAuthenticated()" id="users-menu"
+				<li sec:authorize="isAuthenticated()" id="friends-menu"
 					class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
 						th:text="#{NavBar.label.friends.dropdown.title}"></span> <span
@@ -40,7 +40,7 @@
 							th:text="#{NavBar.label.friends.dropdown.list}"> </a></li>
 
 					</ul></li>
-				<li sec:authorize="isAuthenticated()" id="users-menu"
+				<li sec:authorize="isAuthenticated()" id="posts-menu"
 					class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
 						th:text="#{NavBar.label.posts.dropdown.title}"></span> <span
