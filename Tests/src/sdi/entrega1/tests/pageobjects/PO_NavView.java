@@ -56,10 +56,10 @@ public class PO_NavView extends PO_View {
 		elementos.get(0).click();
 	}
 	
-	/*public static void clickDropdown(WebDriver driver) {
-		WebElement dropdownMenu = driver.findElement(By.id("marks-menu"));
+	public static void clickDropdown(WebDriver driver, String id) {
+		WebElement dropdownMenu = driver.findElement(By.id(id));
 		dropdownMenu.click();
-	}*/
+	}
 
 	
 	
