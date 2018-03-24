@@ -1,5 +1,7 @@
 package sdi.entrega1.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -9,11 +11,16 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import sdi.entrega1.tests.pageobjects.PO_HomeView;
+import sdi.entrega1.tests.pageobjects.PO_LoginView;
+import sdi.entrega1.tests.pageobjects.PO_NavView;
+import sdi.entrega1.tests.pageobjects.PO_RegisterView;
+import sdi.entrega1.tests.pageobjects.PO_Users_List;
+import sdi.entrega1.tests.pageobjects.PO_View;
+
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Tests {
-	//static String PathFirefox = "C:\\Users\\Manuel\\Downloads\\Firefox46.0.win\\Firefox46.win\\FirefoxPortable.exe";
-	//static String PathFirefox = "C:\\Users\\Manuel\\Documents\\GitHub\\SDI\\SDIPractica1\\Tests\\FirefoxPortable.exe";
 	static String PathFirefox = ".\\Firefox46.win\\FirefoxPortable.exe";
 	static WebDriver driver = getDriver(PathFirefox);
 	static String URL = "http://localhost:8090";
@@ -49,8 +56,66 @@ public class Tests {
 	}
 
 	@Test
-	public void regValTest() {
+	public void PR11_RegVal() {
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, "josefo@gmail.com", "Josefo", "Perez", "77777", "77777");
+		PO_View.checkElement(driver, "text", "Esta es una zona privada de la web");
+	}
 
+	@Test
+	public void PR11_RegInval() {
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, "josefo@gmail.com", "Josefo", "Perez", "77777", "88888");
+		PO_View.checkElement(driver, "text", "Regístrate");
+	}
+
+	@Test
+	public void PR21_InVal() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_View.checkElement(driver, "text",
+				"A continuación se muestran todos los usuarios registrados en la aplicación");
+	}
+
+	@Test
+	public void PR22_InInVal() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456789");
+		PO_View.checkElement(driver, "text", "Las credenciales de inicio de sesión no son correctas.");
+	}
+	
+	@Test
+	public void PR31_LisUsrVal() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_HomeView.clickOption(driver, "home", "class", "navbar navbar-inverse");
+		PO_NavView.clickDropdown(driver, "users-menu");
+		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
+	}
+	
+	@Test
+	public void PR32_ListUsrInval() {
+		driver.navigate().to(URL+"/users/list");
+		PO_View.checkElement(driver, "text", "Identifícate como usuario");
+	}
+	
+	@Test
+	public void PR41_BusUsrVal() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_HomeView.clickOption(driver, "home", "class", "navbar navbar-inverse");
+		PO_NavView.clickDropdown(driver, "users-menu");
+		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
+		PO_Users_List.searchUsers(driver, "mar");
+		assertTrue(PO_Users_List.checkMartaYMaria(driver));
+	}
+	
+	@Test
+	public void PR51_InvVal() throws Exception {
+		driver.navigate().to(URL+"login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_Users_List.clickAccion(driver);
+		PO_HomeView.clickOption(driver, "friends/send/request/","","");
 	}
 
 }

@@ -11,7 +11,10 @@
 			<div class="form-group">
 				<input name="searchText" type="text" class="form-control" size="50" placeholder="Buscar por nombre o email del usuario">
 			</div>
-			<button type="submit" class="btn btn-default" th:text="#{users.search}"></button>
+
+			<button type="submit" class="btn btn-default"
+				th:text="#{users.search}" th:id="btnSearch"></button>
+
 		</form>
 		<div class="table-responsive">
 			<table class="table table-hover" id="tableUsers" th:fragment="tableUsers">
@@ -23,15 +26,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="user : ${userList}">
+					<tr th:id="${'row'+'__${user.id}__'}" th:each="user : ${userList}">
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
 						<td>
 							<a th:href="${'/admin/list/eliminar/' + user.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger" th:text="#{Boton.eliminar}"></a>
 
 							<div class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-								 aria-expanded="true" th:text="#{users.table.actions}">
+
+								<button class="btn btn-default dropdown-toggle" type="button"
+									th:id="${'btn'+'__${user.id}__'}" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="true" th:text="#{users.table.actions}">
+
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
