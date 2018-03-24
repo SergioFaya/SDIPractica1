@@ -13,7 +13,7 @@
 					placeholder="Buscar por nombre o email del usuario">
 			</div>
 			<button type="submit" class="btn btn-default"
-				th:text="#{users.search}"></button>
+				th:text="#{users.search}" th:id="btnSearch"></button>
 		</form>
 		<div class="table-responsive">
 			<table class="table table-hover" id="tableUsers"
@@ -26,7 +26,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="user : ${userList}">
+					<tr th:id="${'row'+'__${user.id}__'}" th:each="user : ${userList}">
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
 						<td>
@@ -36,7 +36,7 @@
 							
 							<div class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
 								<button class="btn btn-default dropdown-toggle" type="button"
-									id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+									th:id="${'btn'+'__${user.id}__'}" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="true" th:text="#{users.table.actions}">
 									<span class="caret"></span>
 								</button>

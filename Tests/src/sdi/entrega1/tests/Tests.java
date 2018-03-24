@@ -1,5 +1,7 @@
 package sdi.entrega1.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,6 +15,7 @@ import sdi.entrega1.tests.pageobjects.PO_HomeView;
 import sdi.entrega1.tests.pageobjects.PO_LoginView;
 import sdi.entrega1.tests.pageobjects.PO_NavView;
 import sdi.entrega1.tests.pageobjects.PO_RegisterView;
+import sdi.entrega1.tests.pageobjects.PO_Users_List;
 import sdi.entrega1.tests.pageobjects.PO_View;
 
 //Ordenamos las pruebas por el nombre del método
@@ -103,7 +106,16 @@ public class Tests {
 		PO_HomeView.clickOption(driver, "home", "class", "navbar navbar-inverse");
 		PO_NavView.clickDropdown(driver, "users-menu");
 		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
-		
+		PO_Users_List.searchUsers(driver, "mar");
+		assertTrue(PO_Users_List.checkMartaYMaria(driver));
+	}
+	
+	@Test
+	public void PR51_InvVal() throws Exception {
+		driver.navigate().to(URL+"login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_Users_List.clickAccion(driver);
+		PO_HomeView.clickOption(driver, "friends/send/request/","","");
 	}
 
 }
