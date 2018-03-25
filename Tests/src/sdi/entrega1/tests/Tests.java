@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -141,17 +142,20 @@ public class Tests {
 	public void PR61_ListIvnVal() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "marta@gmail.com", "123456");
-		driver.navigate().to(URL + "/friends/requests/list");
-		assertTrue(PO_Requests_List.isInRequest(driver, "id-pedro@gmail.com"));
+		PO_NavView.clickDropdown(driver, "friends-menu");
+		PO_HomeView.clickOption(driver, "friends/requests/list", "id", "id-pedro@gmail.com");
 	}
 
-	@Test
+	@Test(expected = TimeoutException.class)
 	public void PR71_AcepIvnVal() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "marta@gmail.com", "123456");
-		driver.navigate().to(URL + "/friends/requests/list");
-		PO_HomeView.clickOption(driver, "friends/accept/request/7", "id", "id-pedro@gmail.com");
-		driver.navigate().to(URL + "/friends/requests/list");
+		PO_NavView.clickDropdown(driver, "friends-menu");
+		PO_HomeView.clickOption(driver, "friends/requests/list", "id", "id-pedro@gmail.com");
+		// intentamos encontrar a pedro, pero tira exception ya que la petición esta
+		// aceptada
+		PO_HomeView.clickOption(driver, "friends/accept/request/1", "id", "id-pedro@gmail.com");
+
 	}
 
 	@Test
@@ -159,30 +163,33 @@ public class Tests {
 		driver.navigate().to(URL + "/login");
 		// lucas tiene amigos precargados
 		PO_LoginView.fillForm(driver, "lucas@gmail.com", "123456");
-		driver.navigate().to(URL + "/friends/list");
-		assertTrue(PO_Friends_List.isInRequest(driver, "id-maria@gmail.com"));
+		PO_NavView.clickDropdown(driver, "friends-menu");
+		PO_HomeView.clickOption(driver, "friends/list", "id", "id-maria@gmail.com");
 	}
 
 	@Test
 	public void PR91_PubVal() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
-		driver.navigate().to(URL + "/post/add");
+		PO_NavView.clickDropdown(driver, "posts-menu");
+		PO_HomeView.clickOption(driver, "post/add", "id", "post-form");
 		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!");
 	}
 
 	@Test
 	public void Pr101_LisPubVal() throws Exception {
-		PR91_PubVal();
-		driver.navigate().to(URL + "/post/list");
-		assertTrue(PO_Post.isInListOfPosts(driver, "TestPR91"));
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_NavView.clickDropdown(driver, "posts-menu");
+		PO_HomeView.clickOption(driver, "post/list", "id", "TestPR91");
 	}
 
 	@Test
 	public void Pr111_LisPubAmiVal() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "lucas@gmail.com", "123456");
-		driver.navigate().to(URL + "/friends/list");
+		PO_NavView.clickDropdown(driver, "friends-menu");
+		PO_HomeView.clickOption(driver, "friends/list", "id", "maria@gmail.com");
 		PO_HomeView.clickOption(driver, "post/list/3", "id", "maria@gmail.com");
 	}
 
@@ -200,15 +207,21 @@ public class Tests {
 	public void PR121_PubFot1Val() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
-		driver.navigate().to(URL + "/post/add");
-		PO_Post.fillForm(driver, "TestPR121", "HELLO DUMMY!", "C:\\Users\\Manuel\\Documents\\GitHub\\SDI\\SDIPractica1\\Tests\\img\\gato.png");
+		PO_NavView.clickDropdown(driver, "posts-menu");
+		PO_HomeView.clickOption(driver, "post/add", "id", "post-form");
+		// INSERTAR FOTO DEL GATO
+		// Hemos incluido en el proyecto una foto para que se pueda probar el
+		// funcionamiento del post con imagen
+		// Se debe incluir a mano el path completo en la linea de debajo
+		PO_Post.fillForm(driver, "TestPR121", "HELLO DUMMY!", "PONER AQUI EL PATH");
 	}
 
 	@Test
 	public void PR121_PubFot2Val() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "maria@gmail.com", "123456");
-		driver.navigate().to(URL + "/post/add");
+		PO_NavView.clickDropdown(driver, "posts-menu");
+		PO_HomeView.clickOption(driver, "post/add", "id", "post-form");
 		PO_Post.fillForm(driver, "TestPR122", "HELLO DUMMY!");
 	}
 
