@@ -201,15 +201,15 @@ public class Tests {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
 		driver.navigate().to(URL + "/post/add");
-		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!", PathPhoto);
+		PO_Post.fillForm(driver, "TestPR121", "HELLO DUMMY!", "C:\\Users\\Manuel\\Documents\\GitHub\\SDI\\SDIPractica1\\Tests\\img\\gato.png");
 	}
 
 	@Test
 	public void PR121_PubFot2Val() throws Exception {
 		driver.navigate().to(URL + "/login");
-		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		PO_LoginView.fillForm(driver, "maria@gmail.com", "123456");
 		driver.navigate().to(URL + "/post/add");
-		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!");
+		PO_Post.fillForm(driver, "TestPR122", "HELLO DUMMY!");
 	}
 
 	@Test
@@ -235,11 +235,6 @@ public class Tests {
 		driver.navigate().to(URL + "/admin/adminLogin");
 		PO_View.checkElement(driver, "text", "Identifícate como administrador");
 		PO_AdminLoginView.fillFormAdmin(driver, "edward@gmail.com", "123456");
-		PO_View.checkElement(driver, "text",
-				"A continuación se muestran todos los usuarios registrados en la aplicación");
-		PO_HomeView.clickOption(driver, "home", "class", "navbar navbar-inverse");
-		PO_NavView.clickDropdown(driver, "users-menu");
-		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
 		PO_View.checkElement(driver, "text",
 				"A continuación se muestran todos los usuarios registrados en la aplicación");
 	}
