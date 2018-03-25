@@ -203,18 +203,18 @@ public class Tests {
 		assertEquals(URL, "http://localhost:8090/error");
 	}
 
-	@Test
-	public void PR121_PubFot1Val() throws Exception {
-		driver.navigate().to(URL + "/login");
-		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
-		PO_NavView.clickDropdown(driver, "posts-menu");
-		PO_HomeView.clickOption(driver, "post/add", "id", "post-form");
-		// INSERTAR FOTO DEL GATO
-		// Hemos incluido en el proyecto una foto para que se pueda probar el
-		// funcionamiento del post con imagen
-		// Se debe incluir a mano el path completo en la linea de debajo
-		PO_Post.fillForm(driver, "TestPR121", "HELLO DUMMY!", "PONER AQUI EL PATH");
-	}
+//	@Test
+//	public void PR121_PubFot1Val() throws Exception {
+//		driver.navigate().to(URL + "/login");
+//		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+//		PO_NavView.clickDropdown(driver, "posts-menu");
+//		PO_HomeView.clickOption(driver, "post/add", "id", "post-form");
+//		// INSERTAR FOTO DEL GATO
+//		// Hemos incluido en el proyecto una foto para que se pueda probar el
+//		// funcionamiento del post con imagen
+//		// Se debe incluir a mano el path completo en la linea de debajo
+//		PO_Post.fillForm(driver, "TestPR121", "HELLO DUMMY!", "D:\\Archivos de programa\\Development\\Git\\SDIPractica1\\Tests\\img\\gato.png");
+//	}
 
 	@Test
 	public void PR121_PubFot2Val() throws Exception {
