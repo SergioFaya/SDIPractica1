@@ -31,10 +31,12 @@ public class FriendshipRequestService {
 		List<FriendShipRequest> repoRequest = friendshipRepo.isInDb(origin.getEmail(), destiny.getEmail());
 		if (repoRequest == null || repoRequest.isEmpty()) {
 			friendshipRepo.save(new FriendShipRequest(origin, destiny));
-			logger.info("El usuario "+origin.getEmail()+" ha enviado una petición de amistad a "+destiny.getEmail() );
+			logger.info(
+					"El usuario " + origin.getEmail() + " ha enviado una petición de amistad a " + destiny.getEmail());
 			return true;
 		}
-		logger.info("El usuario "+origin.getEmail()+" intentó enviar una petición de amistad a "+destiny.getEmail()+" pero falló");
+		logger.info("El usuario " + origin.getEmail() + " intentó enviar una petición de amistad a "
+				+ destiny.getEmail() + " pero falló");
 		return false;
 	}
 
@@ -47,6 +49,8 @@ public class FriendshipRequestService {
 	}
 
 	public void acceptRequest(User authenticated, User friend) {
+		// Este metodo deberia hacer un update como no me funciona en su lugar lo que
+		// hago es sacar de la base de datos crear un nuevo y reemplazarlo
 		// friendshipRepo.updateRequest(authenticated.getEmail(),friend.getEmail());
 		FriendShipRequest request = friendshipRepo.findRequest(authenticated.getEmail(), friend.getEmail());
 		if (request != null) {
@@ -62,16 +66,16 @@ public class FriendshipRequestService {
 		inverseRequest.setAccepted(true);
 		friendshipRepo.save(request);
 		friendshipRepo.save(inverseRequest);
-		logger.info("El usuario "+authenticated.getEmail()+" ha aceptado una petición de amistad de "+friend.getEmail());
+		logger.info("El usuario " + authenticated.getEmail() + " ha aceptado una petición de amistad de "
+				+ friend.getEmail());
 	}
 
 	public FriendShipRequest existsRequest(User authenticated, User friend) {
 		return friendshipRepo.findRequest(authenticated.getEmail(), friend.getEmail());
 	}
-	
-	public boolean areFriends(String user1,String user2) {
-		return friendshipRepo.areFriends(user1,user2).size() >= 1 ;
-	}
 
+	public boolean areFriends(String user1, String user2) {
+		return friendshipRepo.areFriends(user1, user2).size() >= 1;
+	}
 
 }
