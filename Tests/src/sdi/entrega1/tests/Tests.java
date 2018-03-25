@@ -13,6 +13,7 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import sdi.entrega1.tests.pageobjects.PO_AdminLoginView;
 import sdi.entrega1.tests.pageobjects.PO_Friends_List;
 import sdi.entrega1.tests.pageobjects.PO_HomeView;
 import sdi.entrega1.tests.pageobjects.PO_LoginView;
@@ -22,6 +23,7 @@ import sdi.entrega1.tests.pageobjects.PO_RegisterView;
 import sdi.entrega1.tests.pageobjects.PO_Requests_List;
 import sdi.entrega1.tests.pageobjects.PO_Users_List;
 import sdi.entrega1.tests.pageobjects.PO_View;
+import sdi.entrega1.tests.util.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -69,7 +71,7 @@ public class Tests {
 	}
 
 	@Test
-	public void PR11_RegInval() {
+	public void PR12_RegInval() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "josefo@gmail.com", "Josefo", "Perez", "77777", "88888");
 		PO_View.checkElement(driver, "text", "Regístrate");
@@ -97,6 +99,8 @@ public class Tests {
 		PO_HomeView.clickOption(driver, "home", "class", "navbar navbar-inverse");
 		PO_NavView.clickDropdown(driver, "users-menu");
 		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
+		PO_View.checkElement(driver, "text",
+				"A continuación se muestran todos los usuarios registrados en la aplicación");
 	}
 
 	@Test
@@ -120,7 +124,7 @@ public class Tests {
 	public void PR51_InvVal() throws Exception {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
-		PO_Users_List.clickAccion(driver, "btn4");
+		PO_Users_List.clickAccionOBorrarSiAdmin(driver, "btn4");
 		PO_HomeView.clickOption(driver, "friends/send/request/4", "class", "alert alert-success");
 	}
 
@@ -129,7 +133,7 @@ public class Tests {
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
 		// Envia a marta
-		PO_Users_List.clickAccion(driver, "btn4");
+		PO_Users_List.clickAccionOBorrarSiAdmin(driver, "btn4");
 		PO_HomeView.clickOption(driver, "friends/send/request/4", "class", "alert alert-danger");
 	}
 
@@ -166,14 +170,14 @@ public class Tests {
 		driver.navigate().to(URL + "/post/add");
 		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!");
 	}
-	
+
 	@Test
 	public void Pr101_LisPubVal() throws Exception {
 		PR91_PubVal();
 		driver.navigate().to(URL + "/post/list");
-		assertTrue(PO_Post.isInListOfPosts(driver,"TestPR91"));
+		assertTrue(PO_Post.isInListOfPosts(driver, "TestPR91"));
 	}
-	
+
 	@Test
 	public void Pr111_LisPubAmiVal() throws Exception {
 		driver.navigate().to(URL + "/login");
@@ -181,17 +185,17 @@ public class Tests {
 		driver.navigate().to(URL + "/friends/list");
 		PO_HomeView.clickOption(driver, "post/list/3", "id", "maria@gmail.com");
 	}
-	
+
 	@Test
 	public void Pr112_LisPubAmiVal() throws Exception {
-		//usamos a pedro porque no tiene amigos
+		// usamos a pedro porque no tiene amigos
 		driver.navigate().to(URL + "/login");
 		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
 		driver.navigate().to(URL + "/post/list/3");
 		String URL = driver.getCurrentUrl();
-		assertEquals(URL, "http://localhost:8090/error" );
+		assertEquals(URL, "http://localhost:8090/error");
 	}
-	
+
 	@Test
 	public void PR121_PubFot1Val() throws Exception {
 		driver.navigate().to(URL + "/login");
@@ -199,20 +203,66 @@ public class Tests {
 		driver.navigate().to(URL + "/post/add");
 		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!", PathPhoto);
 	}
-	
+
 	@Test
 	public void PR121_PubFot2Val() throws Exception {
-		PR91_PubVal();
+		driver.navigate().to(URL + "/login");
+		PO_LoginView.fillForm(driver, "pedro@gmail.com", "123456");
+		driver.navigate().to(URL + "/post/add");
+		PO_Post.fillForm(driver, "TestPR91", "HELLO DUMMY!");
 	}
-	/*
-	13.1 [AdInVal] Inicio de sesión como administrador con datos válidos.
-	13.2 [AdInInVal] Inicio de sesión como administrador con datos inválidos (usar los datos de un usuario
-	que no tenga perfil administrador).
-	14.1 [AdLisUsrVal] Desde un usuario identificado en sesión como administrador listar a todos los
-	usuarios de la aplicación.
-	15.1 [AdBorUsrVal] Desde un usuario identificado en sesión como administrador eliminar un usuario
-	existente en la aplicación.
-	15.2 [AdBorUsrInVal] Intento de acceso vía URL al borrado de un usuario existente en la aplicación.
-	Debe utilizarse un usuario identif
-	*/
+
+	@Test
+	public void PR131_AdInVal() {
+		driver.navigate().to(URL + "/admin/adminLogin");
+		PO_View.checkElement(driver, "text", "Identifícate como administrador");
+		PO_AdminLoginView.fillFormAdmin(driver, "edward@gmail.com", "123456");
+		PO_View.checkElement(driver, "text",
+				"A continuación se muestran todos los usuarios registrados en la aplicación");
+	}
+
+	@Test
+	public void PR132_AdInInVal() {
+		driver.navigate().to(URL + "/admin/adminLogin");
+		PO_View.checkElement(driver, "text", "Identifícate como administrador");
+		PO_AdminLoginView.fillFormAdmin(driver, "pedro@gmail.com", "123456");
+		PO_View.checkElement(driver, "text",
+				"Las credenciales de inicio de sesión como administrador no son correctas.");
+	}
+
+	@Test
+	public void PR141_AdLisUsrVal() {
+		driver.navigate().to(URL + "/admin/adminLogin");
+		PO_View.checkElement(driver, "text", "Identifícate como administrador");
+		PO_AdminLoginView.fillFormAdmin(driver, "edward@gmail.com", "123456");
+		PO_View.checkElement(driver, "text",
+				"A continuación se muestran todos los usuarios registrados en la aplicación");
+		PO_HomeView.clickOption(driver, "home", "class", "navbar navbar-inverse");
+		PO_NavView.clickDropdown(driver, "users-menu");
+		PO_HomeView.clickOption(driver, "users/list", "class", "navbar-form");
+		PO_View.checkElement(driver, "text",
+				"A continuación se muestran todos los usuarios registrados en la aplicación");
+	}
+
+	@Test
+	public void PR151_AdBorUsrVal() {
+		driver.navigate().to(URL + "/admin/adminLogin");
+		PO_View.checkElement(driver, "text", "Identifícate como administrador");
+		PO_AdminLoginView.fillFormAdmin(driver, "edward@gmail.com", "123456");
+		PO_View.checkElement(driver, "text",
+				"A continuación se muestran todos los usuarios registrados en la aplicación");
+		SeleniumUtils.esperarSegundos(driver, 2);
+		PO_Users_List.clickAccionOBorrarSiAdmin(driver, "btn5");
+		// Nos aseguramos que se han borrado
+		assertFalse(PO_Users_List.checkPelayoHaSidoBorrado(driver));
+	}
+
+	@Test
+	public void PR152_AdBorUsrInVal() {
+		// accedemos a la url para borrar al usuario pedro
+		driver.navigate().to(URL + "/admin/list/eliminar/1");
+		// Comprobamos que nos redirige a la failureURL de spring security (login)
+		PO_View.checkElement(driver, "text", "Identifícate como usuario");
+	}
+
 }

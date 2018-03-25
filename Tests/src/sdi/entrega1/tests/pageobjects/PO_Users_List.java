@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class PO_Users_List extends PO_View{
-	
+public class PO_Users_List extends PO_View {
+
 	public static void searchUsers(WebDriver driver, String searchText) {
 		WebElement searchField = driver.findElement(By.name("searchText"));
 		searchField.click();
@@ -13,21 +13,40 @@ public class PO_Users_List extends PO_View{
 		WebElement buttonSearch = driver.findElement(By.id("btnSearch"));
 		buttonSearch.click();
 	}
-	
+
 	public static boolean checkMartaYMaria(WebDriver driver) {
-		WebElement maria = driver.findElement(By.id("row3"));
-		WebElement marta = driver.findElement(By.id("row4"));
-		return maria != null && marta != null;
+		try {
+			//WebElement maria = driver.findElement(By.id("row3"));
+			//WebElement marta = driver.findElement(By.id("row4"));
+			driver.findElement(By.id("row3"));
+			driver.findElement(By.id("row4"));
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+		//return maria != null && marta != null;
 	}
 	
-	public static void sendRequest(WebDriver driver, String buttonId) {
-		WebElement btn = driver.findElement(By.id(buttonId));
-		
+	public static boolean checkPelayoHaSidoBorrado(WebDriver driver) {
+		try {
+			driver.findElement(By.id("row5"));
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
-	
-	public static void clickAccion(WebDriver driver,String btnId) {
+
+	/**
+	 * Si el usuario es normal, se hace click al botón desplegable de acciones. Si
+	 * el usuario es administrador, ese mismo botón se utilizará para borrar un
+	 * usuario
+	 * 
+	 * @param driver
+	 * @param btnId
+	 */
+	public static void clickAccionOBorrarSiAdmin(WebDriver driver, String btnId) {
 		WebElement btnAccion = driver.findElement(By.id(btnId));
 		btnAccion.click();
 	}
-	
+
 }

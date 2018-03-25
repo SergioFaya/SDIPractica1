@@ -15,7 +15,8 @@
 				<li><a href="/home" th:text="#{NavBar.label.home}">Home</a></li>
 
 
-				<li sec:authorize="isAuthenticated()" id="users-menu"
+				<li sec:authorize="isAuthenticated()"
+					sec:authorize="hasRole('ROLE_USUARIO')" id="users-menu"
 					class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
 						th:text="#{NavBar.label.users.dropdown.title}"></span><span
@@ -26,7 +27,8 @@
 							th:text="#{NavBar.label.users.dropdown.list}"></a></li>
 					</ul></li>
 
-				<li sec:authorize="isAuthenticated()" id="friends-menu"
+				<li sec:authorize="isAuthenticated()"
+					sec:authorize="hasRole('ROLE_USUARIO')" id="friends-menu"
 					class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
 						th:text="#{NavBar.label.friends.dropdown.title}"></span> <span
@@ -40,7 +42,8 @@
 							th:text="#{NavBar.label.friends.dropdown.list}"> </a></li>
 
 					</ul></li>
-				<li sec:authorize="isAuthenticated()" id="posts-menu"
+				<li sec:authorize="isAuthenticated()"
+					sec:authorize="hasRole('ROLE_USUARIO')" id="posts-menu"
 					class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
 						th:text="#{NavBar.label.posts.dropdown.title}"></span> <span
@@ -59,7 +62,8 @@
 				<li class="dropdown"><a id="btnLanguage" href="#"
 					class="dropdown-toggle" data-toggle="dropdown" role="button"
 					aria-haspopup="true" aria-expanded="false"> <span
-						th:text="#{internationalization.change}"></span> <span class="caret"></span>
+						th:text="#{internationalization.change}"></span> <span
+						class="caret"></span>
 				</a>
 					<ul id="languageDropdownMenuButton" class="dropdown-menu">
 						<li><a id="btnEnglish" value="EN"> <img
@@ -80,8 +84,7 @@
 						th:text="#{NavBar.label.register}"></span>
 				</a></li>
 				<li sec:authorize="!isAuthenticated()"><a href="/login"> <span
-						th:text="#{NavBar.label.logIn}"
-						class="glyphicon glyphicon-log-in" ></span>
+						th:text="#{NavBar.label.logIn}" class="glyphicon glyphicon-log-in"></span>
 				</a></li>
 				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
 						class="glyphicon glyphicon-log-out"

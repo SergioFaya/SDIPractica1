@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class PO_LoginView extends PO_View {
-
-	static public void fillForm(WebDriver driver, String emailp, String passwordp) {
-		WebElement email = driver.findElement(By.name("username"));
+public class PO_AdminLoginView extends PO_View {
+	
+	static public void fillFormAdmin(WebDriver driver, String emailp, String passwordp) {
+		WebElement email = driver.findElement(By.name("email"));
 		email.click();
 		email.clear();
 		email.sendKeys(emailp);
@@ -20,6 +20,5 @@ public class PO_LoginView extends PO_View {
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
 	}
-
 
 }

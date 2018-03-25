@@ -2,6 +2,7 @@ package sdi.entrega1.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,13 +27,13 @@ public class User {
 	private String passwordConfirm;
 	private String role;
 
-	@OneToMany(mappedBy = "userSource")
+	@OneToMany(mappedBy = "userSource", cascade = CascadeType.ALL)
 	private Set<FriendShipRequest> sentRequests;
 
-	@OneToMany(mappedBy = "userDestiny")
+	@OneToMany(mappedBy = "userDestiny", cascade = CascadeType.ALL)
 	private Set<FriendShipRequest> receivedRequests;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Post> posts;
 
 	public User() {

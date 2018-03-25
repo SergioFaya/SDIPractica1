@@ -30,7 +30,8 @@
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
 						<td>
-							<a th:href="${'/admin/list/eliminar/' + user.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger" th:text="#{Boton.eliminar}"></a>
+							<a th:href="${'/admin/list/eliminar/' + user.id}" sec:authorize="hasRole('ROLE_ADMIN')"
+							th:id="${'btn'+'__${user.id}__'}" class="btn btn-danger" th:text="#{Boton.eliminar}"></a>
 
 							<div class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
 
